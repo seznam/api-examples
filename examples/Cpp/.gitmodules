@@ -1,0 +1,9 @@
+[submodule "opt/cpr"]
+	path = opt/cpr
+	url = https://github.com/whoshuu/cpr
+[submodule "opt/json"]
+	path = opt/json
+	url = https://github.com/nlohmann/json
+[submodule "opt/cpprestsdk"]
+	path = opt/cpprestsdk
+	url = https://github.com/Microsoft/cpprestsdk.git

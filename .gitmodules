@@ -1,0 +1,9 @@
+[submodule "examples/Cpp/opt/cpr"]
+	path = examples/Cpp/opt/cpr
+	url = https://github.com/whoshuu/cpr
+[submodule "examples/Cpp/opt/json"]
+	path = examples/Cpp/opt/json
+	url = https://github.com/nlohmann/json
+[submodule "examples/Cpp/opt/cpprestsdk"]
+	path = examples/Cpp/opt/cpprestsdk
+	url = https://github.com/Microsoft/cpprestsdk.git
