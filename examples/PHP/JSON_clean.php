@@ -16,7 +16,7 @@ class JsonSklik {
      * URL pro volání dotazu - API verze DRAK
      * @var string 
      */
-    protected $url = 'https://api.sklik.cz/jsonApi/drak';
+    protected $url = 'https://api.sklik.cz/drak/json/';
     
     /**
      * Zavolání XML dotazu

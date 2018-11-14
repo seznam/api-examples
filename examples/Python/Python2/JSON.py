@@ -4,8 +4,8 @@ import json
 class JsonSklik:
                 
         def login(self):
-            response = post("https://api.sklik.cz/jsonApi/drak/client.loginByToken", json=("token"!!!))
-            #response = post("https://api.sklik.cz/jsonApi/drak/client.login",json=("email", "heslo"))
+            response = post("https://api.sklik.cz/drak/json/client.loginByToken", json=("token"!!!))
+            #response = post("https://api.sklik.cz/drak/json/client.login",json=("email", "heslo"))
             res = response.json()
             if res["status"] == 200:
                 self.session = res["session"]
@@ -28,7 +28,7 @@ class JsonSklik:
         """
         def request(self):
             if self.login():
-                response = response = post('https://api.sklik.cz/jsonApi/drak/ads.createReport', json=[{"session":self.session},
+                response = response = post('https://api.sklik.cz/drak/json/ads.createReport', json=[{"session":self.session},
                 {"dateFrom":"2018-01-22",
                 "dateTo":"2018-02-23"}
                 ])

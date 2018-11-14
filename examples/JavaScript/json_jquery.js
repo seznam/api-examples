@@ -10,7 +10,7 @@ function sklikApi(method, parameters, callback, params) {
     contentType: 'application/json',
     method: 'POST',
     dataType: "json",
-    url: 'https://api.sklik.cz/jsonApi/drak/' + method,
+    url: 'https://api.sklik.cz/drak/json/' + method,
     data: JSON.stringify(parameters)
   }).done(function (response) {
     if (response.session) {
@@ -31,7 +31,7 @@ function sklikApi(method, parameters, callback, params) {
  */
 function loginByToken() {
   //############# TOKEN
-  var token = 'token'!!!;
+  var token = 'token';
   var userId = [242911];
   sklikApi('client.loginByToken', token, createReport, { 'userIds': userId });
 }
