@@ -2,6 +2,9 @@
 Tento projekt obsahuje příklady základního spojení uživatele prostřednictvím Sklik API. 
 Skládá se z metody pro autentizaci uživatele a jednoho příkladu volání. 
 
+# Sklik API SSP
+Kromě příkladů na připojení klientských účtů (API Drak) nabízíme i základní připojení pro naše partnery (SSP API)
+
 # Dostupné jazyky
 Příklady byly testované na těchto verzích (fungování na jinačích verzích není zaručeno)
 PHP 5.6
