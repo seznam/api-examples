@@ -1,0 +1,298 @@
+{
+	"info": {
+		"_postman_id": "72b9c868-7d8d-4ad7-a351-aec50772c9c5",
+		"name": "SSP API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f83dec82-804c-45a3-85eb-76c81bb1af70",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "4bbbfd96-a5d5-4d2f-928b-e70629752160",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var session = jsonData[\"session\"];",
+									"pm.environment.set(\"session\", session);",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"{{username}}\",\n    \"password\": \"{{password}}\"\n}"
+						},
+						"url": {
+							"raw": "{{proxy}}login",
+							"host": [
+								"{{proxy}}login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LoginToken",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f83dec82-804c-45a3-85eb-76c81bb1af70",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "4bbbfd96-a5d5-4d2f-928b-e70629752160",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var session = jsonData[\"session\"];",
+									"pm.environment.set(\"session\", session);",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"token\": \"{{token}}\"\n}"
+						},
+						"url": {
+							"raw": "{{proxy}}login/token",
+							"host": [
+								"{{proxy}}login"
+							],
+							"path": [
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Webs",
+			"item": [
+				{
+					"name": "Webs/List",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f83dec82-804c-45a3-85eb-76c81bb1af70",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "f3786405-80ae-4a84-bf30-97ef03ceaebb",
+								"exec": [
+									"var jsonData = pm.response.json()",
+									"",
+									"var webs = jsonData[\"webs\"]",
+									"",
+									"var websList = [];",
+									"",
+									"webs.forEach(function(val, index, arr){",
+									"    websList.push(val[\"webId\"]);",
+									"})",
+									"",
+									"pm.environment.set(\"webs\", websList.toString());",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"session\": \"{{session}}\",\n    \"removed\": false\n}\n"
+						},
+						"url": {
+							"raw": "{{proxy}}webs/list",
+							"host": [
+								"{{proxy}}webs"
+							],
+							"path": [
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Webs/Stats",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f83dec82-804c-45a3-85eb-76c81bb1af70",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "f3786405-80ae-4a84-bf30-97ef03ceaebb",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"session\": \"{{session}}\",\n    \"removed\": false,\n    \"byDevice\" : true,\n    \"bySource\" : false,\n    \"granularity\" : \"total\",\n    \"dateFrom\" : \"2019-02-01\",\n    \"dateTo\" : \"2019-02-28\",\n    \"webIds\" : [{{webs}}]\n}\n"
+						},
+						"url": {
+							"raw": "{{proxy}}webs/stats",
+							"host": [
+								"{{proxy}}webs"
+							],
+							"path": [
+								"stats"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Zones",
+			"item": [
+				{
+					"name": "Zones/List",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"session\": \"{{session}}\",\n    \"removed\": false,\n    \"webIds\": [{{webs}}]\n}\n"
+						},
+						"url": {
+							"raw": "{{proxy}}zones/list",
+							"host": [
+								"{{proxy}}zones"
+							],
+							"path": [
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Zones/Stats",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"session\": \"{{session}}\",\n    \"removed\": false,\n    \"allowEmptyStatistics\" : false,\n    \"byDevice\" : false,\n    \"bySource\" : false,\n    \"granularity\" : \"daily\",\n    \"dateFrom\" : \"2019-01-01\",\n    \"dateTo\" : \"2019-01-10\",\n    \"webIds\": [{{webs}}]\n}\n"
+						},
+						"url": {
+							"raw": "{{proxy}}zones/stats",
+							"host": [
+								"{{proxy}}zones"
+							],
+							"path": [
+								"stats"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
