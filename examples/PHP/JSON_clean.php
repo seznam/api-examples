@@ -79,6 +79,36 @@ class JsonSklik {
         $response = $this->call($this->url.'/'.$method, $request);
         return json_decode($response);
     }
+
+     /**
+     * Images upload 
+     * @return mixed
+     */
+    public function request() {
+        $this->login();
+   
+        if($this->session) {             
+            $file = "imageUrl.jpg";
+            $resource = fopen($file, 'rb');
+            $handler = base64_encode(fread($resource, filesize($file)));          
+            $method = 'ads.create';
+            $request = json_encode(
+                array(
+                    array('session'=>$this->session, 'userId'=>12345),
+                    array(
+                        array(
+                            'groupId' => 12345,
+                            'adType' => 'branding',
+                            'name' => 'test',
+                            'finalUrl' => 'http://www.sklik.cz',
+                            'image' => $handle
+                        )
+                    )
+                )
+            );        
+        $response = $this->call($this->url.'/'.$method, $request);
+        return json_decode($response);
+    }
 }
 $test = new JsonSklik();
 echo $test->request();
