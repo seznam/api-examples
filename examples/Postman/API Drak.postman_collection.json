@@ -1,0 +1,1940 @@
+{
+	"info": {
+		"_postman_id": "2c56edfa-9f33-4ac7-8fa9-620babc41d85",
+		"name": "API Drak",
+		"description": "JSON verze API Drak",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "__Login",
+			"item": [
+				{
+					"name": "LoginByToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c840788-46db-46ec-9238-b45feb55abef",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var session = jsonData[\"session\"];",
+									"pm.environment.set(\"session\", session);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\"{{token}}\""
+						},
+						"url": {
+							"raw": "{{proxy}}client.loginByToken",
+							"host": [
+								"{{proxy}}client",
+								"loginByToken"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ads",
+			"item": [
+				{
+					"name": "CreateReport",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dd06a237-722a-4cfe-bb45-1f4800d3dcc5",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var reportId = jsonData[\"reportId\"];",
+									"pm.environment.set(\"reportIdTemp\", reportId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\"session\" : \"{{session}}\",\"userId\" : {{userDefault}}},\n{\"dateFrom\":\"2018-01-01\", \"dateTo\":\"2018-01-02\"},\n{}\n]"
+						},
+						"url": {
+							"raw": "{{proxy}}ads.createReport",
+							"host": [
+								"{{proxy}}ads",
+								"createReport"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateReport Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dd06a237-722a-4cfe-bb45-1f4800d3dcc5",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var reportId = jsonData[\"reportId\"];",
+									"pm.environment.set(\"reportIdTemp\", reportId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\"session\" : \"{{session}}\",\"userId\" : {{userDefault}}},\n{\"dateFrom\":\"2019-01-01\", \"dateTo\":\"2019-02-01\"},\n{\"statGranularity\": \"weekly\"}\n]"
+						},
+						"url": {
+							"raw": "{{proxy}}ads.createReport",
+							"host": [
+								"{{proxy}}ads",
+								"createReport"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateReport Filters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dd06a237-722a-4cfe-bb45-1f4800d3dcc5",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var reportId = jsonData[\"reportId\"];",
+									"pm.environment.set(\"reportIdTemp\", reportId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\"session\" : \"{{session}}\",\"userId\" : {{userDefault}}},\n{\n\t\"campaign\" : {\n\t\t\"ids\" : [{{campaignId}}]\n\t},\n\t\"creatives\" : [{\n\t\t\"operator\" : \"CONTAINS\",\n\t\t\"value\" : \"Mall.cz\"\n\t},\n\t{\n\t\t\"operator\" : \"CONTAINS\",\n\t\t\"value\" : \"Ledn%\"\n\t}\n\t],\n\t\"isDeleted\" : false,\n\t\"urls\" : [\n\t\t{\n\t\t\t\"operator\" : \"CONTAINS\",\n\t\t\t\"value\" : \"stream\"\n\t\t}\t\n\t],\n\t\"adType\" :  [\"sta\", \"eta\", \"combined\", \"branding\"],\n\t\"statisticsConditions\" : [\n\t{\n\t\t\"columnName\" : \"impressions\",\n\t\t\"operator\" : \"GT\",\n\t\t\"intValue\" : 100000\n\t},\t\n\t{\n\t\t\"columnName\" : \"quality\",\n\t\t\"operator\" : \"GT\",\n\t\t\"intValue\" : 3\n\t},\n\t{\n\t\t\"columnName\" : \"conversions\",\n\t\t\"operator\" : \"GT\",\n\t\t\"intValue\" : 6\n\t}\n\t],\n\t\"dateFrom\" : \"2019-01-01\", \n\t\"dateTo\" : \"2019-02-01\"\n},\n{\"statGranularity\" : \"total\"}\n]"
+						},
+						"url": {
+							"raw": "{{proxy}}ads.createReport",
+							"host": [
+								"{{proxy}}ads",
+								"createReport"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ReadReport",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n\"{{reportIdTemp}}\",\n{\n\t\"offset\" : 0,\n\t\"limit\" : 10,\n\t\"allowEmptyStatistics\" : false, \n\t\"displayColumns\": [\"adStatus\",\"adType\",\"clickthruText\",\"clickthruUrl\",\"createDate\",\"creative1\",\"creative2\",\"creative3\",\"deleted\",\"deleteDate\",\"description\",\"description2\",\"finalUrl\",\"headline1\",\"headline2\",\"headline3\",\"id\",\"path1\",\"path2\",\"longLine\",\"shortLine\",\"name\",\"companyName\",\"image.id\",\"image.url\",\"image.width\",\"image.height\",\"image.size\",\"imageLogo.id\",\"imageLogo.url\",\"imageLogo.width\",\"imageLogo.height\",\"imageLogo.size\",\"imageSquare.id\",\"imageSquare.url\",\"imageSquare.width\",\"imageSquare.height\",\"imageSquare.size\",\"imageLandscapeLogo.id\",\"imageLandscapeLogo.url\",\"imageLandscapeLogo.width\",\"imageLandscapeLogo.height\",\"imageLandscapeLogo.size\",\"mobileFinalUrl\",\"impressionTrackingTemplate\",\"premiseId\",\"premiseModeId\",\"premiseMode\",\"sensitivity\",\"status\",\"trackingTemplate\",\"group.id\",\"group.name\",\"group.deleted\",\"group.createDate\",\"group.deleteDate\",\"group.maxCpc\",\"group.maxCpcContext\",\"group.maxCpt\",\"campaign.actualClicks\",\"campaign.createDate\",\"campaign.deleteDate\",\"campaign.deleted\",\"campaign.endDate\",\"campaign.id\",\"campaign.name\",\"campaign.startDate\",\"campaign.totalBudgetFrom\",\"campaign.totalClicksFrom\",\"campaign.totalClicks\",\"avgCpc\",\"avgPos\",\"clickMoney\",\"clicks\",\"conversions\",\"conversionValue\",\"impressionMoney\",\"impressions\",\"totalMoney\",\"transactions\",\"missImpressions\",\"underLowerThreshold\",\"exhaustedBudget\",\"stoppedBySchedule\",\"underForestThreshold\",\"exhaustedBudgetShare\",\"ctr\",\"pno\",\"ish\",\"ishContext\",\"ishSum\"]\n}\n]"
+						},
+						"url": {
+							"raw": "{{proxy}}ads.readReport",
+							"host": [
+								"{{proxy}}ads",
+								"readReport"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n{\n\t\"isDeleted\" : false\t\n},\n{\n\t\"offset\" : 0,\n\t\"limit\" : 20,\n\t\"displayColumns\": [\"adStatus\",\"adType\",\"clickthruText\",\"clickthruUrl\",\"createDate\",\"creative1\",\"creative2\",\"creative3\",\"deleted\",\"deleteDate\",\"description\",\"description2\",\"finalUrl\",\"headline1\",\"headline2\",\"headline3\",\"id\",\"path1\",\"path2\",\"longLine\",\"shortLine\",\"name\",\"companyName\",\"image.id\",\"image.url\",\"image.width\",\"image.height\",\"image.size\",\"imageLogo.id\",\"imageLogo.url\",\"imageLogo.width\",\"imageLogo.height\",\"imageLogo.size\",\"imageSquare.id\",\"imageSquare.url\",\"imageSquare.width\",\"imageSquare.height\",\"imageSquare.size\",\"imageLandscapeLogo.id\",\"imageLandscapeLogo.url\",\"imageLandscapeLogo.width\",\"imageLandscapeLogo.height\",\"imageLandscapeLogo.size\",\"mobileFinalUrl\",\"impressionTrackingTemplate\",\"premiseId\",\"premiseModeId\",\"premiseMode\",\"sensitivity\",\"status\",\"statusId\",\"trackingTemplate\",\"group.id\",\"group.name\",\"group.deleted\",\"group.createDate\",\"group.deleteDate\",\"group.maxCpc\",\"group.maxCpcContext\",\"group.maxCpt\",\"campaign.actualClicks\",\"campaign.createDate\",\"campaign.deleteDate\",\"campaign.deleted\",\"campaign.endDate\",\"campaign.id\",\"campaign.name\",\"campaign.startDate\",\"campaign.totalBudgetFrom\",\"campaign.totalClicksFrom\",\"campaign.totalClicks\"]\n}\n]"
+						},
+						"url": {
+							"raw": "{{proxy}}ads.list",
+							"host": [
+								"{{proxy}}ads",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n[\n\t{\n\t\t\"requestId\" : 1288,\n\t\t\"groupId\" : {{groupId}},\n\t\t\"adType\" : \"eta\",\n\t\t\"headline1\" : \"Headline 1 text\",\n\t\t\"headline2\" : \"Headline 2 text\",\n\t\t\"headline3\" : \"Headline 3 text\",\n\t\t\"path1\" : \"Path1_w\",\n\t\t\"path2\" : \"Path2\",\n\t\t\"description\" : \"Descriptionw\",\n\t\t\"description2\" : \"Description 2\",\n\t\t\"finalUrl\" : \"https://www.sklik.cz/test\",\n\t\t\"trackingTemplate\" : \"https://www.sklik.cz?test=2\"\n\t}\n]]        \n       "
+						},
+						"url": {
+							"raw": "{{proxy}}ads.create",
+							"host": [
+								"{{proxy}}ads",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n[\n\t{\n\t\t\"id\" : 380598664,\n\t\t\"adType\" : \"combined\",\n\t\t\"trackingTemplate\" : \"https://www.sklik.cz?test=1\",\n\t\t\"impressionTrackingTemplate\" : \"https://www.sklik.cz?test=2\"\n\t}\n]]        \n       "
+						},
+						"url": {
+							"raw": "{{proxy}}ads.update",
+							"host": [
+								"{{proxy}}ads",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Api",
+			"item": [
+				{
+					"name": "Limits",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dd06a237-722a-4cfe-bb45-1f4800d3dcc5",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\"session\" : \"{{session}}\"}]"
+						},
+						"url": {
+							"raw": "{{proxy}}api.limits",
+							"host": [
+								"{{proxy}}api",
+								"limits"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Version",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dd06a237-722a-4cfe-bb45-1f4800d3dcc5",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{proxy}}api.version",
+							"host": [
+								"{{proxy}}api",
+								"version"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Banners",
+			"item": [
+				{
+					"name": "CreateReport",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dd06a237-722a-4cfe-bb45-1f4800d3dcc5",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var reportId = jsonData[\"reportId\"];",
+									"pm.environment.set(\"reportIdTemp\", reportId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\"session\" : \"{{session}}\",\"userId\" : {{userDefault}}},\n{\"dateFrom\":\"2018-01-01\", \"dateTo\":\"2018-01-02\"},\n{}\n]"
+						},
+						"url": {
+							"raw": "{{proxy}}ads.createReport",
+							"host": [
+								"{{proxy}}ads",
+								"createReport"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ReadReport",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n\"{{reportIdTemp}}\",\n{\n\t\"offset\" : 0,\n\t\"limit\" : 997,\n\t\"allowEmptyStatistics\" : false, \n\t\"displayColumns\": [\"adStatus\",\"adType\",\"clickthruText\",\"clickthruUrl\",\"createDate\",\"creative1\",\"creative2\",\"creative3\",\"deleted\",\"deleteDate\",\"description\",\"description2\",\"finalUrl\",\"headline1\",\"headline2\",\"headline3\",\"id\",\"path1\",\"path2\",\"longLine\",\"shortLine\",\"name\",\"companyName\",\"image.id\",\"image.url\",\"image.width\",\"image.height\",\"image.size\",\"imageLogo.id\",\"imageLogo.url\",\"imageLogo.width\",\"imageLogo.height\",\"imageLogo.size\",\"imageSquare.id\",\"imageSquare.url\",\"imageSquare.width\",\"imageSquare.height\",\"imageSquare.size\",\"imageLandscapeLogo.id\",\"imageLandscapeLogo.url\",\"imageLandscapeLogo.width\",\"imageLandscapeLogo.height\",\"imageLandscapeLogo.size\",\"mobileFinalUrl\",\"impressionTrackingTemplate\",\"premiseId\",\"premiseModeId\",\"premiseMode\",\"sensitivity\",\"status\",\"trackingTemplate\",\"group.id\",\"group.name\",\"group.deleted\",\"group.createDate\",\"group.deleteDate\",\"group.maxCpc\",\"group.maxCpcContext\",\"group.maxCpt\",\"campaign.actualClicks\",\"campaign.createDate\",\"campaign.deleteDate\",\"campaign.deleted\",\"campaign.endDate\",\"campaign.id\",\"campaign.name\",\"campaign.startDate\",\"campaign.totalBudgetFrom\",\"campaign.totalClicksFrom\",\"campaign.totalClicks\",\"avgCpc\",\"avgPos\",\"clickMoney\",\"clicks\",\"conversions\",\"conversionValue\",\"impressionMoney\",\"impressions\",\"totalMoney\",\"transactions\",\"missImpressions\",\"underLowerThreshold\",\"exhaustedBudget\",\"stoppedBySchedule\",\"underForestThreshold\",\"exhaustedBudgetShare\",\"ctr\",\"pno\",\"ish\",\"ishContext\",\"ishSum\"]\n}\n]"
+						},
+						"url": {
+							"raw": "{{proxy}}ads.readReport",
+							"host": [
+								"{{proxy}}ads",
+								"readReport"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n{\n\t\"isDeleted\" : false\n},\n{\n\t\"offset\" : 0,\n\t\"limit\" : 20,\n\t\"displayColumns\": [\"adStatus\",\"adType\",\"bannerName\",\"createDate\",\"clickthruUrl\",\"deleted\",\"deleteDate\",\"description\",\"mobileFinalUrl\",\"height\",\"id\",\"image.id\",\"image.url\",\"image.width\",\"image.height\",\"image.size\",\"imageType\",\"imageUrl\",\"width\",\"premiseId\",\"premiseModeId\",\"premiseMode\",\"status\",\"statusId\",\"sensitivity\",\"campaign.actualClicks\",\"campaign.createDate\",\"campaign.deleteDate\",\"campaign.deleted\",\"campaign.endDate\",\"campaign.id\",\"campaign.name\",\"campaign.startDate\",\"campaign.totalBudgetFrom\",\"campaign.totalClicksFrom\",\"campaign.totalClicks\",\"campaign.status\",\"group.id\",\"group.name\",\"group.deleted\",\"group.createDate\",\"group.deleteDate\",\"group.maxCpc\",\"group.maxCpcContext\",\"group.maxCpt\",\"group.status\"]\n}\n]"
+						},
+						"url": {
+							"raw": "{{proxy}}banners.list",
+							"host": [
+								"{{proxy}}banners",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n[\n\t{\n        \"dayBudget\" : 3000, \n        \"name\" : \"Testovani alfa beta gama3\", \n        \"targetDevices\" : {\"mobile\" : true, \"other\" : true, \"tablet\" : true, \"desktop\" : true},\n        \"type\" : \"fulltext\",\n        \"adSelection\" : \"weighted\",\n        \"excludedSearchServices\" : []\n\t},\n\t{\n        \"dayBudget\" : 3000, \n        \"name\" : \"Testovani alfa beta gama3\", \n        \"targetDevices\" : {\"mobile\" : true, \"other\" : true, \"tablet\" : true, \"desktop\" : true},\n        \"type\" : \"fulltext\",\n        \"adSelection\" : \"weighted\",\n        \"excludedSearchServices\" : []\n\t}\n]]        \n       "
+						},
+						"url": {
+							"raw": "{{proxy}}banners.check",
+							"host": [
+								"{{proxy}}banners",
+								"check"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "3a87d749-3c15-428e-8541-54f639316d35",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "2477a299-410c-4bfa-9be1-82e6fff367e0",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Client",
+			"item": [
+				{
+					"name": "LoginByToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c840788-46db-46ec-9238-b45feb55abef",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var session = jsonData[\"session\"];",
+									"pm.environment.set(\"session\", session);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\"{{token}}\""
+						},
+						"url": {
+							"raw": "{{proxy}}client.loginByToken",
+							"host": [
+								"{{proxy}}client",
+								"loginByToken"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c840788-46db-46ec-9238-b45feb55abef",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var session = jsonData[\"session\"];",
+									"pm.environment.set(\"session\", session);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\"{{username}}\",\"{{password}}\"]"
+						},
+						"url": {
+							"raw": "{{proxy}}client.login",
+							"host": [
+								"{{proxy}}client",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dd06a237-722a-4cfe-bb45-1f4800d3dcc5",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\"session\" : \"{{session}}\"}]"
+						},
+						"url": {
+							"raw": "{{proxy}}client.get",
+							"host": [
+								"{{proxy}}client",
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dd06a237-722a-4cfe-bb45-1f4800d3dcc5",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\"session\" : \"{{session}}\"}]"
+						},
+						"url": {
+							"raw": "{{proxy}}client.logout",
+							"host": [
+								"{{proxy}}client",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCredit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dd06a237-722a-4cfe-bb45-1f4800d3dcc5",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n}]"
+						},
+						"url": {
+							"raw": "{{proxy}}client.getCredit",
+							"host": [
+								"{{proxy}}client",
+								"getCredit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Stats",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dd06a237-722a-4cfe-bb45-1f4800d3dcc5",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n}, {\n\t\"dateFrom\" : \"2018-01-01\", \n\t\"dateTo\" : \"2018-01-02\",\n\t\"granularity\" : \"total\",\n\t\"includeFulltext\" : true,\n\t\"includeContext\" : true,\n\t\"splitByConversions\" : false\n}]"
+						},
+						"url": {
+							"raw": "{{proxy}}client.stats",
+							"host": [
+								"{{proxy}}client",
+								"stats"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e0d85eef-8781-4532-a59c-39ee3971eae7",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "215d1231-22bb-4084-9f7d-7072ec9101ea",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Campaigns",
+			"item": [
+				{
+					"name": "CreateReport",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dd06a237-722a-4cfe-bb45-1f4800d3dcc5",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var reportId = jsonData[\"reportId\"];",
+									"pm.environment.set(\"reportIdTemp\", reportId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\"session\" : \"{{session}}\",\"userId\" : {{userDefault}}},\n{\"dateFrom\":\"2019-01-01\", \"dateTo\":\"2019-04-01\"},\n{\"statGranularity\": \"monthly\"}\n]"
+						},
+						"url": {
+							"raw": "{{proxy}}campaigns.createReport",
+							"host": [
+								"{{proxy}}campaigns",
+								"createReport"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ReadReport",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n\"{{reportIdTemp}}\",\n{\n\t\"offset\" : 0,\n\t\"limit\" : 10,\n\t\"allowEmptyStatistics\" : false, \n\t\"displayColumns\": [\"actualClicks\",\"adSelection\",\"automaticLocation\",\"context\",\"contextNetwork\",\"createDate\",\"deleted\",\"deleteDate\",\"defaultBudgetId\",\"deviceDesktop\",\"deviceTablet\",\"deviceMobil\",\"deviceOther\",\"endDate\",\"exhaustedTotalBudget\",\"fulltext\",\"id\",\"name\",\"paymentMethod\",\"startDate\",\"status\",\"totalClicks\",\"totalClicksFrom\",\"type\",\"totalBudget\",\"budget.colorCodeId\",\"budget.dayBudget\",\"budget.deleted\",\"budget.deleteDate\",\"budget.id\",\"budget.name\",\"avgCpc\",\"avgPos\",\"clickMoney\",\"clicks\",\"conversions\",\"conversionValue\",\"impressionMoney\",\"impressions\",\"totalMoney\",\"transactions\",\"missImpressions\",\"underLowerThreshold\",\"exhaustedBudget\",\"stoppedBySchedule\",\"underForestThreshold\",\"exhaustedBudgetShare\",\"ctr\",\"pno\",\"ish\",\"ishContext\",\"ishSum\",\"devicesPriceRatio\"]\n}\n]"
+						},
+						"url": {
+							"raw": "{{proxy}}campaigns.readReport",
+							"host": [
+								"{{proxy}}campaigns",
+								"readReport"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n{\n\t\"isDeleted\" : false\n},\n{\n\t\"offset\" : 0,\n\t\"limit\" : 200,\n\t\"displayColumns\": [\"actualClicks\",\"adSelection\",\"automaticLocation\",\"context\",\"contextNetwork\",\"createDate\",\"deleted\",\"deleteDate\",\"defaultBudgetId\",\"deviceDesktop\",\"deviceTablet\",\"deviceMobil\",\"deviceOther\",\"endDate\",\"exhaustedTotalBudget\",\"fulltext\",\"id\",\"name\",\"paymentMethod\",\"startDate\",\"status\",\"statusId\",\"totalClicks\",\"totalClicksFrom\",\"type\",\"totalBudget\",\"budget.colorCodeId\",\"budget.dayBudget\",\"budget.deleted\",\"budget.deleteDate\",\"budget.id\",\"budget.name\"]\n}\n]"
+						},
+						"url": {
+							"raw": "{{proxy}}campaigns.list",
+							"host": [
+								"{{proxy}}campaigns",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListCampaignsTypes",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n}]"
+						},
+						"url": {
+							"raw": "{{proxy}}campaigns.listCampaignsTypes",
+							"host": [
+								"{{proxy}}campaigns",
+								"listCampaignsTypes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListPredefinedRegions",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n}\n]"
+						},
+						"url": {
+							"raw": "{{proxy}}listPredefinedRegions",
+							"host": [
+								"{{proxy}}listPredefinedRegions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListSearchServices",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n}\n]"
+						},
+						"url": {
+							"raw": "{{proxy}}listSearchServices",
+							"host": [
+								"{{proxy}}listSearchServices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n[\n\t{\n        \"dayBudget\" : 3000, \n        \"name\" : \"Testovani alfa beta gama3\", \n        \"targetDevices\" : {\"mobile\" : true, \"other\" : true, \"tablet\" : true, \"desktop\" : true},\n        \"type\" : \"fulltext\",\n        \"adSelection\" : \"weighted\"\n\t},\n\t{\n        \"dayBudget\" : 3000, \n        \"name\" : \"Testovani alfa beta gama4\", \n        \"targetDevices\" : {\"mobile\" : true, \"other\" : true, \"tablet\" : true, \"desktop\" : true},\n        \"type\" : \"fulltext\",\n        \"adSelection\" : \"weighted\"\n\t}\n]]        \n       "
+						},
+						"url": {
+							"raw": "{{proxy}}campaigns.check",
+							"host": [
+								"{{proxy}}campaigns",
+								"check"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n[\n\t{\n        \"id\" : {{campainId}}, \n        \"name\" : \"TestName\", \n        \"excludedSearchServices\" : [],\n        \"type\" : \"combined\"\n\t}\n]]        \n       "
+						},
+						"url": {
+							"raw": "{{proxy}}campaigns.update",
+							"host": [
+								"{{proxy}}campaigns",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Groups",
+			"item": [
+				{
+					"name": "CreateReport",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dd06a237-722a-4cfe-bb45-1f4800d3dcc5",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var reportId = jsonData[\"reportId\"];",
+									"pm.environment.set(\"reportIdTemp\", reportId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n\t\"session\" : \"{{session}}\",\n\t\"userId\" : {{userDefault}}\n},\n{\n\t\"ids\" : [12345],\n\t\"dateFrom\":\"2019-02-01\", \n\t\"dateTo\":\"2019-04-04\"\n},\n{}]"
+						},
+						"url": {
+							"raw": "{{proxy}}groups.createReport",
+							"host": [
+								"{{proxy}}groups",
+								"createReport"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ReadReport",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n\"{{reportIdTemp}}\",\n{\n\t\"offset\" : 0,\n\t\"limit\" : 10,\n\t\"allowEmptyStatistics\" : false, \n\t\"displayColumns\": [\"createDate\",\"deleted\",\"deleteDate\",\"id\",\"maxCpc\",\"maxCpcContext\",\"maxUserDailyImpressions\",\"maxCpt\",\"name\",\"sensitivity\",\"status\",\"statusId\",\"campaign.actualClicks\",\"campaign.automaticLocation\",\"campaign.adSelectionId\",\"campaign.createDate\",\"campaign.context\",\"campaign.deleteDate\",\"campaign.deleted\",\"campaign.deviceDesktop\",\"campaign.deviceTablet\",\"campaign.deviceMobil\",\"campaign.deviceOther\",\"campaign.endDate\",\"campaign.fulltext\",\"campaign.id\",\"campaign.name\",\"campaign.paymentMethodId\",\"campaign.startDate\",\"campaign.status\",\"campaign.statusId\",\"campaign.totalClicks\",\"campaign.totalBudgetFrom\",\"campaign.totalClicksFrom\",\"avgCpc\",\"avgPos\",\"clickMoney\",\"clicks\",\"conversions\",\"conversionValue\",\"impressionMoney\",\"impressions\",\"totalMoney\",\"transactions\",\"missImpressions\",\"underLowerThreshold\",\"exhaustedBudget\",\"stoppedBySchedule\",\"underForestThreshold\",\"exhaustedBudgetShare\",\"ctr\",\"pno\",\"ish\",\"ishContext\",\"ishSum\",\"devicesPriceRatio\", \"campaign.devicesPriceRatio\"]\n}\n]"
+						},
+						"url": {
+							"raw": "{{proxy}}groups.readReport",
+							"host": [
+								"{{proxy}}groups",
+								"readReport"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n{\n\t\"isDeleted\" : false\t\n},\n{\n\t\"offset\" : 0,\n\t\"limit\" : 20,\n\t\"displayColumns\": [\"createDate\",\"deleted\",\"deleteDate\",\"id\",\"maxCpc\",\"maxCpcContext\",\"maxUserDailyImpressions\",\"maxCpt\",\"name\",\"sensitivity\",\"status\",\"statusId\",\"campaign.actualClicks\",\"campaign.automaticLocation\",\"campaign.adSelectionId\",\"campaign.createDate\",\"campaign.context\",\"campaign.deleteDate\",\"campaign.deleted\",\"campaign.deviceDesktop\",\"campaign.deviceTablet\",\"campaign.deviceMobil\",\"campaign.deviceOther\",\"campaign.endDate\",\"campaign.fulltext\",\"campaign.id\",\"campaign.name\",\"campaign.paymentMethodId\",\"campaign.startDate\",\"campaign.status\",\"campaign.statusId\",\"campaign.totalClicks\",\"campaign.totalBudgetFrom\",\"campaign.totalClicksFrom\"]\n}\n]"
+						},
+						"url": {
+							"raw": "{{proxy}}groups.list",
+							"host": [
+								"{{proxy}}groups",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n[\n\t{\n        \"campaignId\": 1340940,\n        \"name\" : \"test10002\",\n        \"cpc\" : 1000,\n        \"cpcContext\" : 1000,\n        \"status\": \"active\"\n\t},\n\t{\n        \"campaignId\": 1340940,\n        \"name\" : \"test10002\",\n        \"cpc\" : 1000,\n        \"cpcContext\" : 1000,\n        \"status\": \"active\"\n\t}\n]]        \n       "
+						},
+						"url": {
+							"raw": "{{proxy}}groups.check",
+							"host": [
+								"{{proxy}}groups",
+								"check"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n[\n\t{\n        \"campaignId\": 1427654,\n        \"name\" : \"__alfa2\",\n        \"cpc\" : 1000,\n        \"cpcContext\" : 1000,\n        \"status\": \"active\",\n        \"maxUserDailyImpression\" : 3\n\t}\n]]        \n       "
+						},
+						"url": {
+							"raw": "{{proxy}}groups.create",
+							"host": [
+								"{{proxy}}groups",
+								"create"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "279f4929-9af5-4609-b9b4-e237e1c1d219",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "4c1d0cfe-ff45-468c-a0d1-e16b42b5ca9a",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Intends",
+			"item": [
+				{
+					"name": "GetCategoryList",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dd06a237-722a-4cfe-bb45-1f4800d3dcc5",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var reportId = jsonData[\"reportId\"];",
+									"pm.environment.set(\"reportIdTemp\", reportId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n\t\"session\" : \"{{session}}\",\n\t\"userId\" : {{userDefault}}\n}]"
+						},
+						"url": {
+							"raw": "{{proxy}}intends.getCategoryList",
+							"host": [
+								"{{proxy}}intends",
+								"getCategoryList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Tree.List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dd06a237-722a-4cfe-bb45-1f4800d3dcc5",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var reportId = jsonData[\"reportId\"];",
+									"pm.environment.set(\"reportIdTemp\", reportId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n\t\"session\" : \"{{session}}\",\n\t\"userId\" : {{userDefault}}\n}]"
+						},
+						"url": {
+							"raw": "{{proxy}}intends.tree.list",
+							"host": [
+								"{{proxy}}intends",
+								"tree",
+								"list"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "3a87d749-3c15-428e-8541-54f639316d35",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "2477a299-410c-4bfa-9be1-82e6fff367e0",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Interests",
+			"item": [
+				{
+					"name": "ListCategories",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dd06a237-722a-4cfe-bb45-1f4800d3dcc5",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var reportId = jsonData[\"reportId\"];",
+									"pm.environment.set(\"reportIdTemp\", reportId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n\t\"session\" : \"{{session}}\",\n\t\"userId\" : {{userDefault}}\n}]"
+						},
+						"url": {
+							"raw": "{{proxy}}interests.listCategories",
+							"host": [
+								"{{proxy}}interests",
+								"listCategories"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "3a87d749-3c15-428e-8541-54f639316d35",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "2477a299-410c-4bfa-9be1-82e6fff367e0",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Keywords",
+			"item": [
+				{
+					"name": "CreateReport",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dd06a237-722a-4cfe-bb45-1f4800d3dcc5",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var reportId = jsonData[\"reportId\"];",
+									"pm.environment.set(\"reportIdTemp\", reportId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n\t\"session\" : \"{{session}}\",\n\t\"userId\" : {{userDefault}}\n},\n{\n\t\"dateFrom\" : \"2018-01-01\", \n\t\"dateTo\" : \"2018-01-02\",\n\t\"campaign\" : {\n\t\t\"ids\" : [1267558]\t\n\t},\n\t\"maxCpc\" : [{\n\t\t\"operator\": \"GT\",\n\t\t\"value\": 100\n\t}]\n},\n{}]"
+						},
+						"url": {
+							"raw": "{{proxy}}keywords.createReport",
+							"host": [
+								"{{proxy}}keywords",
+								"createReport"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ReadReport",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n\"{{reportIdTemp}}\",\n{\n\t\"offset\" : 0,\n\t\"limit\" : 1000,\n\t\"allowEmptyStatistics\" : true, \n\t\"displayColumns\": [\"cpc\",\"createDate\",\"deleteDate\",\"deleted\",\"disabled\",\"id\",\"matchTypeId\",\"matchType\",\"name\",\"status\",\"statusId\",\"url\",\"group.id\",\"group.name\",\"group.deleted\",\"group.createDate\",\"group.deleteDate\",\"group.maxCpc\",\"group.maxCpcContext\",\"group.maxCpt\",\"campaign.id\",\"campaign.totalBudgetFrom\",\"campaign.name\",\"campaign.totalClicks\",\"campaign.actualClicks\",\"campaign.totalClicksFrom\",\"campaign.context\",\"campaign.fulltext\",\"campaign.deleted\",\"campaign.deleteDate\",\"campaign.adSelection\",\"campaign.adSelectionId\",\"campaign.paymentMethod\",\"campaign.paymentMethodId\",\"campaign.startDate\",\"campaign.endDate\",\"campaign.createDate\",\"campaign.automaticLocation\",\"campaign.budgetId\",\"campaign.defaultBudgetId\",\"campaign.deviceDesktop\",\"campaign.deviceTablet\",\"campaign.deviceMobil\",\"campaign.deviceOther\",\"campaign.status\",\"campaign.statusId\",\"avgCpc\",\"avgPos\",\"clickMoney\",\"clicks\",\"conversions\",\"conversionValue\",\"impressionMoney\",\"impressions\",\"totalMoney\",\"transactions\",\"missImpressions\",\"underLowerThreshold\",\"exhaustedBudget\",\"stoppedBySchedule\",\"underForestThreshold\",\"exhaustedBudgetShare\",\"ctr\",\"pno\",\"ish\",\"ishContext\",\"ishSum\",\"isRegisteredBrand\",\"isUnsuitable\",\"isTooGeneric\",\"isGloballyDisabled\",\"isTrademark\",\"isSuspicious\",\"campaign.devicesPriceRatio\"]\n}\n]"
+						},
+						"url": {
+							"raw": "{{proxy}}keywords.readReport",
+							"host": [
+								"{{proxy}}keywords",
+								"readReport"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Negative.CreateReport",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dd06a237-722a-4cfe-bb45-1f4800d3dcc5",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var reportId = jsonData[\"reportId\"];",
+									"pm.environment.set(\"reportIdTemp\", reportId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n\t\"session\" : \"{{session}}\",\n\t\"userId\" : {{userDefault}}\n},\n{\n\t\"campaign\" : {\n\t\t\"ids\" : [1267558]\t\n\t}\n}]"
+						},
+						"url": {
+							"raw": "{{proxy}}keywords.negative.createReport",
+							"host": [
+								"{{proxy}}keywords",
+								"negative",
+								"createReport"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Negative.ReadReport",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n\"{{reportIdTemp}}\",\n{\n\t\"offset\" : 0,\n\t\"limit\" : 10,\n\t\"allowEmptyStatistics\" : true, \n\t\"displayColumns\": [\"deleteDate\",\"deleted\",\"id\",\"matchTypeId\",\"matchType\",\"name\",\"group.id\",\"group.name\",\"group.deleted\",\"group.createDate\",\"group.deleteDate\",\"group.maxCpc\",\"group.maxCpcContext\",\"group.maxCpt\",\"campaign.id\",\"campaign.name\",\"campaign.totalClicks\",\"campaign.actualClicks\",\"campaign.startDate\",\"campaign.endDate\",\"campaign.totalBudgetFrom\",\"campaign.totalClicksFrom\",\"campaign.createDate\",\"campaign.deleteDate\",\"campaign.deleted\",\"campaign.context\",\"campaign.fulltext\",\"campaign.adSelectionId\",\"campaign.paymentMethodId\",\"campaign.automaticLocation\",\"campaign.budgetId\",\"campaign.defaultBudgetId\",\"campaign.deviceDesktop\",\"campaign.deviceTablet\",\"campaign.deviceMobil\",\"campaign.deviceOther\"]\n}\n]"
+						},
+						"url": {
+							"raw": "{{proxy}}keywords.negative.readReport",
+							"host": [
+								"{{proxy}}keywords",
+								"negative",
+								"readReport"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sugges",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n\t{\"session\" : \"{{session}}\"},\n\t\"-kofola\",\n\t{\n\t\t\"offset\" : 0,\n\t\t\"limit\" : 10,\n\t\t\"orderBy\" : \"avgSearchCount\",\n\t\t\"orderDirection\" : \"desc\"\n\t}\n]"
+						},
+						"url": {
+							"raw": "{{proxy}}keywords.suggest",
+							"host": [
+								"{{proxy}}keywords",
+								"suggest"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Lists",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n\t{\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}},\n\t{}, \n\t{\"limit\": 5000, \"offset\": 0}\n]"
+						},
+						"url": {
+							"raw": "{{proxy}}keywords.list",
+							"host": [
+								"{{proxy}}keywords",
+								"list"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Queries",
+			"item": [
+				{
+					"name": "CreateReport",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dd06a237-722a-4cfe-bb45-1f4800d3dcc5",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var reportId = jsonData[\"reportId\"];",
+									"pm.environment.set(\"reportIdTemp\", reportId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n\t\"session\" : \"{{session}}\",\n\t\"userId\" : {{userDefault}}\n},\n{\n\t\"dateFrom\" : \"2018-01-01\", \n\t\"dateTo\" : \"2018-01-02\",\n\t\"campaign\" : {\n\t\t\"ids\" : [1267558],\n\t\t\"status\" : [\"active\",\"suspend\"],\n\t\t\"isDeleted\" : false\n\t},\n\t\"statisticsConditions\" : [\n\t\t{\"columnName\" : \"impressions\", \"operator\" : \"GT\", \"intValue\" : 10},\n\t\t{\"columnName\" : \"clicks\", \"operator\" : \"GT\", \"intValue\" : 1}\n\t]\n},\n{}]"
+						},
+						"url": {
+							"raw": "{{proxy}}queries.createReport",
+							"host": [
+								"{{proxy}}queries",
+								"createReport"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ReadReport",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n\"{{reportIdTemp}}\",\n{\n\t\"offset\" : 0,\n\t\"limit\" : 1000,\n\t\"allowEmptyStatistics\" : true, \n\t\"displayColumns\": [\n\"query\",\n\"keyword.id\",\n\"keyword.createDate\",\n\"keyword.deleteDate\",\n\"keyword.deleted\",\n\"keyword.status\",\n\"keyword.statusId\",\n\"keyword.name\",\n\"keyword.matchTypeId\",\n\"keyword.matchType\",\n\"keyword.urlId\",\n\"keyword.url\",\n\"keyword.maxCpc\",\n\"keyword.cpc\",\n\"keyword.disabled\",\n\"group.id\",\n\"group.name\",\n\"group.deleted\",\n\"group.createDate\",\n\"group.deleteDate\",\n\"group.maxCpc\",\n\"group.maxCpcContext\",\n\"group.maxCpt\",\n\"group.statusId\",\n\"campaign.id\",\n\"campaign.totalBudgetFrom\",\n\"campaign.name\",\n\"campaign.totalClicks\",\n\"campaign.actualClicks\",\n\"campaign.totalClicksFrom\",\n\"campaign.context\",\n\"campaign.fulltext\",\n\"campaign.deleted\",\n\"campaign.deleteDate\",\n\"campaign.adSelection\",\n\"campaign.adSelectionId\",\n\"campaign.paymentMethod\",\n\"campaign.paymentMethodId\",\n\"campaign.startDate\",\n\"campaign.endDate\",\n\"campaign.createDate\",\n\"campaign.automaticLocation\",\n\"campaign.budgetId\",\n\"campaign.defaultBudgetId\",\n\"campaign.deviceDesktop\",\n\"campaign.deviceTablet\",\n\"campaign.deviceMobil\",\n\"campaign.deviceOther\",\n\"campaign.statusId\",\n\"avgCpc\",\n\"avgPos\",\n\"clickMoney\",\n\"clicks\",\n\"conversions\",\n\"conversionValue\",\n\"impressionMoney\",\n\"impressions\",\n\"totalMoney\",\n\"transactions\"]\n}\n]"
+						},
+						"url": {
+							"raw": "{{proxy}}queries.readReport",
+							"host": [
+								"{{proxy}}queries",
+								"readReport"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "8d14762c-d866-40e4-8215-6640f302177b",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "eab530d8-0295-40a1-ba8f-97157d9750eb",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Retargeting",
+			"item": [
+				{
+					"name": "CreateReport",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "14add708-e7fb-4f39-bda2-f24c539b6b56",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var reportId = jsonData[\"reportId\"];",
+									"pm.environment.set(\"reportIdTemp\", reportId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n\t\"session\" : \"{{session}}\",\n\t\"userId\" : {{userDefault}}\n},\n{\n\t\"retargetingState\" : \"assigned\",\n\t\"dateFrom\" : \"2018-01-01\", \n\t\"dateTo\":\"2018-01-02\"\n},\n{\n\t\"statGranularity\":\"total\"\n}]"
+						},
+						"url": {
+							"raw": "{{proxy}}retargeting.createReport",
+							"host": [
+								"{{proxy}}retargeting",
+								"createReport"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ReadReport",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n\"{{reportIdTemp}}\",\n{\n\t\"offset\" : 0,\n\t\"limit\" : 10,\n\t\"allowEmptyStatistics\" : true, \n\t\"displayColumns\": [\"id\",\"retargetingId\",\"active\",\"cpc\",\"cpt\",\"isCombination\",\"name\",\"membership\",\"users\",\"useHistoricData\",\"description\",\"createDate\",\"takeAllUsers\",\"indexDate\",\"isDynamic\",\"deleteDate\",\"listDeleted\",\"deleted\",\"suspendDate\",\"status\",\"retargetingConditions.id\",\"retargetingConditions.groupId\",\"retargetingConditions.value\",\"retargetingConditions.type\",\"retargetingConditions.key\",\"campaign.actualClicks\",\"campaign.createDate\",\"campaign.deleteDate\",\"campaign.deleted\",\"campaign.endDate\",\"campaign.id\",\"campaign.name\",\"campaign.startDate\",\"campaign.totalBudgetFrom\",\"campaign.totalClicksFrom\",\"campaign.totalClicks\",\"group.id\",\"group.name\",\"group.deleted\",\"group.createDate\",\"group.deleteDate\",\"group.maxCpc\",\"group.maxCpcContext\",\"group.maxCpt\",\"avgCpc\",\"avgPos\",\"clickMoney\",\"clicks\",\"conversions\",\"conversionValue\",\"impressionMoney\",\"impressions\",\"totalMoney\",\"transactions\",\"missImpressions\",\"underLowerThreshold\",\"exhaustedBudget\",\"stoppedBySchedule\",\"underForestThreshold\",\"exhaustedBudgetShare\",\"ctr\",\"pno\"]\n}\n]"
+						},
+						"url": {
+							"raw": "{{proxy}}retargeting.readReport",
+							"host": [
+								"{{proxy}}retargeting",
+								"readReport"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sitelinks",
+			"item": [
+				{
+					"name": "List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "14add708-e7fb-4f39-bda2-f24c539b6b56",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var reportId = jsonData[\"reportId\"];",
+									"pm.environment.set(\"reportIdTemp\", reportId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n\t\"session\" : \"{{session}}\",\n\t\"userId\" : {{userDefault}}\n}]"
+						},
+						"url": {
+							"raw": "{{proxy}}sitelinks.list",
+							"host": [
+								"{{proxy}}sitelinks",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "14add708-e7fb-4f39-bda2-f24c539b6b56",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var reportId = jsonData[\"reportId\"];",
+									"pm.environment.set(\"reportIdTemp\", reportId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n\t\"session\" : \"{{session}}\",\n\t\"userId\" : {{userDefault}}\n},[]\n]"
+						},
+						"url": {
+							"raw": "{{proxy}}sitelinks.campaign.list",
+							"host": [
+								"{{proxy}}sitelinks",
+								"campaign",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateReport",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dd06a237-722a-4cfe-bb45-1f4800d3dcc5",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var reportId = jsonData[\"reportId\"];",
+									"pm.environment.set(\"reportIdTemp\", reportId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n\t\"session\" : \"{{session}}\",\n\t\"userId\" : {{userDefault}}\n},\n{\n\t\"dateFrom\" : \"2019-03-01\", \n\t\"dateTo\" : \"2019-03-31\",\n\t\"campaign\" : {\n\t\t\"ids\" : [720971]\n\t}\n},\n{\"statGranularity\": \"total\"}\n]"
+						},
+						"url": {
+							"raw": "{{proxy}}sitelinks.createReport",
+							"host": [
+								"{{proxy}}sitelinks",
+								"createReport"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ReadReport",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n\"{{reportIdTemp}}\",\n{\n\t\"offset\" : 0,\n\t\"limit\" : 100,\n\t\"allowEmptyStatistics\" : true, \n\t\"displayColumns\": [\n\"id\",\n\"createDate\",\n\"deleted\",\n\"deletedSitelinkInGroup\",\n\"status\",\n\"statusId\",\n\"name\",\n\"urlId\",\n\"url\",\n\"indexDate\",\n\"group.id\",\n\"group.name\",\n\"group.deleted\",\n\"group.createDate\",\n\"group.deleteDate\",\n\"group.maxCpc\",\n\"group.maxCpcContext\",\n\"group.maxCpt\",\n\"campaign.actualClicks\",\n\"campaign.createDate\",\n\"campaign.deleteDate\",\n\"campaign.deleted\",\n\"campaign.endDate\",\n\"campaign.id\",\n\"campaign.name\",\n\"campaign.startDate\",\n\"campaign.totalBudgetFrom\",\n\"campaign.totalClicksFrom\",\n\"campaign.totalClicks\",\n\"user.id\",\n\"clicks\",\n\"impressions\",\n\"clickMoney\",\n\"impressionMoney\",\n\"totalMoney\",\n\"avgPos\",\n\"conversions\",\n\"transactions\",\n\"missImpressions\",\n\"underLowerThreshold\",\n\"exhaustedBudget\",\n\"stoppedBySchedule\",\n\"underForestThreshold\",\n\"exhaustedBudgetShare\",\n\"ctr\",\n\"pno\",\n\"ish\"\n]\n}\n]"
+						},
+						"url": {
+							"raw": "{{proxy}}sitelinks.readReport",
+							"host": [
+								"{{proxy}}sitelinks",
+								"readReport"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ReadReport Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n\"{{reportIdTemp}}\",\n{\n\t\"offset\" : 0,\n\t\"limit\" : 500,\n\t\"allowEmptyStatistics\" : true, \n\t\"displayColumns\": [\n\"id\", \n\"deleted\",\n\"avgPos\",\n\"ctr\",\n\"impressions\",\n\"clickMoney\",\n\"impressionMoney\",\n\"totalMoney\",\n\"avgPos\",\n\"conversions\",\n\"transactions\",\n\"missImpressions\",\n\"underLowerThreshold\",\n\"exhaustedBudget\",\n\"stoppedBySchedule\",\n\"underForestThreshold\",\n\"exhaustedBudgetShare\",\n\"ctr\",\n\"pno\",\n\"ish\"\n\n]\n}\n]"
+						},
+						"url": {
+							"raw": "{{proxy}}sitelinks.readReport",
+							"host": [
+								"{{proxy}}sitelinks",
+								"readReport"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Themes",
+			"item": [
+				{
+					"name": "GetCategoryList",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dd06a237-722a-4cfe-bb45-1f4800d3dcc5",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var reportId = jsonData[\"reportId\"];",
+									"pm.environment.set(\"reportIdTemp\", reportId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n\t\"session\" : \"{{session}}\",\n\t\"userId\" : {{userDefault}}\n}]"
+						},
+						"url": {
+							"raw": "{{proxy}}intends.getCategoryList",
+							"host": [
+								"{{proxy}}intends",
+								"getCategoryList"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "3a87d749-3c15-428e-8541-54f639316d35",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "2477a299-410c-4bfa-9be1-82e6fff367e0",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	]
+}
