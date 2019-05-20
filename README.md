@@ -15,3 +15,6 @@ Příklady byly testované na těchto verzích (fungování na jinačích verzí
 PHP 5.6
 Python 2.7, 3.6
 JavaScript + Ajax 3.2
+
+# Google apps script
+Přidány příklady na základní práci v prostředí Google Apps Script
