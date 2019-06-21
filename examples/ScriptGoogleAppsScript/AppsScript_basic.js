@@ -25,7 +25,7 @@ function campaignKeeper() {
 
     //Nastaveni datumu na vcerejsi den -> uprava formatu ktery ocekava API
     var ys = new Date(Date.now() - 864e5);
-    var yesterday = ys.getFullYear() + "-" + ys.getMonth() + "-" + ys.getDate();
+    var yesterday = ys.toISOString(ys, "GTM - 1", 'yyyy-MM-dd');
 
     //Volani crateReport - vytvoreni prehledu vsech zvolenych kapani
     var restrictionFilter = { 'ids': CAMPAIGN_IDS, 'dateFrom': yesterday, 'dateTo': yesterday };
@@ -115,7 +115,7 @@ function apiCall(parameters, method, retry) {
     } catch (e) {
         if (retry < 5) {
             Utilities.sleep(2000);
-            return apiCall(parameters, method, retry);
+            return apiCall(parameters, method, ++retry);
         } else {
             return false;
         }
