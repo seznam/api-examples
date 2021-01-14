@@ -5,7 +5,6 @@ class JsonSklik:
                 
         def login(self):
             response = post("https://api.sklik.cz/drak/json/client.loginByToken", json=("token"!!!))
-            #response = post("https://api.sklik.cz/drak/json/client.login",json=("email", "heslo"))
             res = response.json()
             if res["status"] == 200:
                 self.session = res["session"]

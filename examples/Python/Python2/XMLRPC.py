@@ -9,7 +9,6 @@ class XMLRPCSklik:
         
         def login(self):
             self.p = xmlrpclib.ServerProxy('https://api.sklik.cz/drak/RPC2')
-            #result = self.p.client.login("email", 'heslo')
             result = self.p.client.loginByToken("token"!!!)
             if result["status"] == 200:
                 self.session = result["session"]
