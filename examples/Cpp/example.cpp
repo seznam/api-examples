@@ -26,6 +26,7 @@ public:
 	bool login(std::string token) {
 		json j = {token};
 		auto resp = call("/client.loginByToken", j);
+
 		return resp["status"] == 200;
 	}
 
