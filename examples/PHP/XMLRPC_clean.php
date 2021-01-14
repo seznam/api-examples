@@ -54,13 +54,10 @@ class XmlRpcSklik {
         $ses = array();
         $request = "<?xml version=\"1.0\"?>
             <methodCall>
-                <methodName>client.login</methodName>
+                <methodName>client.loginByToken</methodName>
                 <params>
                     <param>
-                        <string>email"!!!"</string>
-                    </param>
-                    <param>
-                        <string>heslo"!!!"</string>
+                        <string>token"!!!"</string>
                     </param>
                 </params>
             </methodCall>";

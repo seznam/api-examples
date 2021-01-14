@@ -23,8 +23,8 @@ private:
 
 public:
 	JsonApi(std::string address): address(address) {}
-	bool login(std::string username, std::string password) {
-		json j = {username, password};
+	bool login(std::string token) {
+		json j = {token};
 		auto resp = call("/client.login", j);
 		return resp["status"] == 200;
 	}
@@ -45,7 +45,7 @@ public:
 
 int main() {
 	JsonApi test("https://api.sklik.cz/jsonApi/drak");
-	if (test.login("account@seznam.cz", "password")) {
+	if (test.login("token")) {
 		auto resp = test.create_report("2018-07-01", "2018-08-01");
 	}
 
