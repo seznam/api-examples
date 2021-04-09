@@ -1,0 +1,59 @@
+[
+    {
+        "session": "SessionString",
+        "userId": 12345
+    },
+    {
+        "campaign": {
+            "ids": [
+                12345,
+                12345
+            ]
+        },
+        "creatives": [
+            {
+                "operator": "CONTAINS",
+                "value": "Elektronika"
+            },
+            {
+                "operator": "CONTAINS",
+                "value": "Lednice"
+            }
+        ],
+        "isDeleted": false,
+        "urls": [
+            {
+                "operator": "CONTAINS",
+                "value": "zbozi.cz"
+            }
+        ],
+        "adType": [
+            "sta",
+            "eta",
+            "combined",
+            "branding"
+        ],
+        "statisticsConditions": [
+            {
+                "columnName": "impressions",
+                "operator": "GT",
+                "intValue": 100
+            },
+            {
+                "columnName": "quality",
+                "operator": "GT",
+                "intValue": 3
+            },
+            {
+                "columnName": "conversions",
+                "operator": "GT",
+                "intValue": 6
+            }
+        ],
+        "dateFrom": "2019-01-01",
+        "dateTo": "2019-02-01"
+    },
+    {
+        "statGranularity": "total"
+    }
+]

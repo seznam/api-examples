@@ -21,7 +21,8 @@ class JsonSklik:
         ARRAY - 'ids': [1297587,123932]
         STRING[] - "displayColumns":["id","name"]
             import base64
-            square = open('300_300.jpg',"rb").read().encode('base64')
+            with open("image_name.jpg", 'rb') as image_handle:
+                    image_data = base64.b64encode(image_handle.read()).decode("ascii")
         BINARY - 'image': square
 
         """
