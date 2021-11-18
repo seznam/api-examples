@@ -15,7 +15,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "7c840788-46db-46ec-9238-b45feb55abef",
 								"exec": [
 									"var jsonData = pm.response.json();",
 									"var session = jsonData[\"session\"];",
@@ -60,7 +59,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "dd06a237-722a-4cfe-bb45-1f4800d3dcc5",
 								"exec": [
 									"var jsonData = pm.response.json();",
 									"var reportId = jsonData[\"reportId\"];",
@@ -95,12 +93,11 @@
 					"response": []
 				},
 				{
-					"name": "CreateReport Copy",
+					"name": "CreateReport - split by device",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
-								"id": "dd06a237-722a-4cfe-bb45-1f4800d3dcc5",
 								"exec": [
 									"var jsonData = pm.response.json();",
 									"var reportId = jsonData[\"reportId\"];",
@@ -122,7 +119,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[\n{\"session\" : \"{{session}}\",\"userId\" : {{userDefault}}},\n{\"dateFrom\":\"2019-01-01\", \"dateTo\":\"2019-02-01\"},\n{\"statGranularity\": \"weekly\"}\n]"
+							"raw": "[\n{\"session\" : \"{{session}}\",\"userId\":{{userDefault}}},\n{\"dateFrom\":\"2020-03-01\", \"dateTo\":\"2020-04-03\",\"deviceType\": [\"devicePhone\", \"deviceTablet\", \"deviceAll\", \"deviceOther\", \"deviceDesktop\"]},\n{\"statGranularity\": \"total\"}\n]"
 						},
 						"url": {
 							"raw": "{{proxy}}ads.createReport",
@@ -140,7 +137,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "dd06a237-722a-4cfe-bb45-1f4800d3dcc5",
 								"exec": [
 									"var jsonData = pm.response.json();",
 									"var reportId = jsonData[\"reportId\"];",
@@ -162,7 +158,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[\n{\"session\" : \"{{session}}\",\"userId\" : {{userDefault}}},\n{\n\t\"campaign\" : {\n\t\t\"ids\" : [{{campaignId}}]\n\t},\n\t\"creatives\" : [{\n\t\t\"operator\" : \"CONTAINS\",\n\t\t\"value\" : \"Mall.cz\"\n\t},\n\t{\n\t\t\"operator\" : \"CONTAINS\",\n\t\t\"value\" : \"Ledn%\"\n\t}\n\t],\n\t\"isDeleted\" : false,\n\t\"urls\" : [\n\t\t{\n\t\t\t\"operator\" : \"CONTAINS\",\n\t\t\t\"value\" : \"stream\"\n\t\t}\t\n\t],\n\t\"adType\" :  [\"sta\", \"eta\", \"combined\", \"branding\"],\n\t\"statisticsConditions\" : [\n\t{\n\t\t\"columnName\" : \"impressions\",\n\t\t\"operator\" : \"GT\",\n\t\t\"intValue\" : 100000\n\t},\t\n\t{\n\t\t\"columnName\" : \"quality\",\n\t\t\"operator\" : \"GT\",\n\t\t\"intValue\" : 3\n\t},\n\t{\n\t\t\"columnName\" : \"conversions\",\n\t\t\"operator\" : \"GT\",\n\t\t\"intValue\" : 6\n\t}\n\t],\n\t\"dateFrom\" : \"2019-01-01\", \n\t\"dateTo\" : \"2019-02-01\"\n},\n{\"statGranularity\" : \"total\"}\n]"
+							"raw": "[\n{\"session\" : \"{{session}}\",\"userId\" : {{userDefault}} },\n{\n\t\"creatives\" : [{\n\t\t\"operator\" : \"CONTAINS\",\n\t\t\"value\" : \"Mall.cz\"\n\t},\n\t{\n\t\t\"operator\" : \"CONTAINS\",\n\t\t\"value\" : \"Ledn%\"\n\t}\n\t],\n\t\"isDeleted\" : false,\n\t\"urls\" : [\n\t\t{\n\t\t\t\"operator\" : \"CONTAINS\",\n\t\t\t\"value\" : \"stream\"\n\t\t}\t\n\t],\n\t\"adType\" :  [\"sta\", \"eta\", \"combined\", \"branding\"],\n\t\"statisticsConditions\" : [\n\t{\n\t\t\"columnName\" : \"impressions\",\n\t\t\"operator\" : \"GT\",\n\t\t\"intValue\" : 100000\n\t},\t\n\t{\n\t\t\"columnName\" : \"quality\",\n\t\t\"operator\" : \"GT\",\n\t\t\"intValue\" : 3\n\t},\n\t{\n\t\t\"columnName\" : \"conversions\",\n\t\t\"operator\" : \"GT\",\n\t\t\"intValue\" : 6\n\t}\n\t],\n\t\"dateFrom\" : \"2019-01-01\", \n\t\"dateTo\" : \"2019-02-01\"\n},\n{\"statGranularity\" : \"total\"}\n]"
 						},
 						"url": {
 							"raw": "{{proxy}}ads.createReport",
@@ -188,7 +184,59 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n\"{{reportIdTemp}}\",\n{\n\t\"offset\" : 0,\n\t\"limit\" : 10,\n\t\"allowEmptyStatistics\" : false, \n\t\"displayColumns\": [\"adStatus\",\"adType\",\"clickthruText\",\"clickthruUrl\",\"createDate\",\"creative1\",\"creative2\",\"creative3\",\"deleted\",\"deleteDate\",\"description\",\"description2\",\"finalUrl\",\"headline1\",\"headline2\",\"headline3\",\"id\",\"path1\",\"path2\",\"longLine\",\"shortLine\",\"name\",\"companyName\",\"image.id\",\"image.url\",\"image.width\",\"image.height\",\"image.size\",\"imageLogo.id\",\"imageLogo.url\",\"imageLogo.width\",\"imageLogo.height\",\"imageLogo.size\",\"imageSquare.id\",\"imageSquare.url\",\"imageSquare.width\",\"imageSquare.height\",\"imageSquare.size\",\"imageLandscapeLogo.id\",\"imageLandscapeLogo.url\",\"imageLandscapeLogo.width\",\"imageLandscapeLogo.height\",\"imageLandscapeLogo.size\",\"mobileFinalUrl\",\"impressionTrackingTemplate\",\"premiseId\",\"premiseModeId\",\"premiseMode\",\"sensitivity\",\"status\",\"trackingTemplate\",\"group.id\",\"group.name\",\"group.deleted\",\"group.createDate\",\"group.deleteDate\",\"group.maxCpc\",\"group.maxCpcContext\",\"group.maxCpt\",\"campaign.actualClicks\",\"campaign.createDate\",\"campaign.deleteDate\",\"campaign.deleted\",\"campaign.endDate\",\"campaign.id\",\"campaign.name\",\"campaign.startDate\",\"campaign.totalBudgetFrom\",\"campaign.totalClicksFrom\",\"campaign.totalClicks\",\"avgCpc\",\"avgPos\",\"clickMoney\",\"clicks\",\"conversions\",\"conversionValue\",\"impressionMoney\",\"impressions\",\"totalMoney\",\"transactions\",\"missImpressions\",\"underLowerThreshold\",\"exhaustedBudget\",\"stoppedBySchedule\",\"underForestThreshold\",\"exhaustedBudgetShare\",\"ctr\",\"pno\",\"ish\",\"ishContext\",\"ishSum\"]\n}\n]"
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n\"{{reportIdTemp}}\",\n{\n\t\"offset\" : 0,\n\t\"limit\" : 10,\n\t\"allowEmptyStatistics\" : true, \n\t\"displayColumns\": [\"adStatus\", \"adType\", \"clickthruText\", \"clickthruUrl\", \"createDate\", \"creative1\", \"creative2\", \"creative3\", \"deleted\",\n\"deleteDate\", \"description\", \"description2\", \"finalUrl\", \"headline1\", \"headline2\", \"headline3\", \"id\", \"path1\", \"path2\",\n\"longLine\", \"shortLine\", \"name\", \"companyName\", \"image.id\", \"image.url\", \"image.width\", \"image.height\", \"image.size\",\n\"imageLogo.id\", \"imageLogo.url\", \"imageLogo.width\", \"imageLogo.height\", \"imageLogo.size\", \"imageSquare.id\",\n\"imageSquare.url\", \"imageSquare.width\", \"imageSquare.height\", \"imageSquare.size\", \"imageLandscapeLogo.id\",\n\"imageLandscapeLogo.url\", \"imageLandscapeLogo.width\", \"imageLandscapeLogo.height\", \"imageLandscapeLogo.size\",\n\"skipRate\", \"views\", \"viewRate\", \"avgCostPerView\", \"viewershipRate\", \"mobileFinalUrl\", \"impressionTrackingTemplate\",\n\"premiseId\", \"premiseModeId\", \"premiseMode\", \"sensitivity\", \"status\", \"trackingTemplate\", \"group.id\", \"group.name\",\n\"group.deleted\", \"group.createDate\", \"group.deleteDate\", \"group.maxCpc\", \"group.maxCpt\", \"campaign.actualClicks\", \"campaign.createDate\", \"campaign.deleteDate\", \"campaign.deleted\", \"campaign.endDate\", \"campaign.id\", \"campaign.name\",\n\"campaign.startDate\", \"campaign.totalBudgetFrom\", \"campaign.totalClicksFrom\", \"campaign.totalClicks\", \"avgCpc\",\n\"avgPos\", \"clickMoney\", \"clicks\", \"conversions\", \"conversionValue\", \"impressionMoney\", \"impressions\", \"totalMoney\",\n\"transactions\", \"missImpressions\", \"underLowerThreshold\", \"exhaustedBudget\", \"stoppedBySchedule\",\n\"underForestThreshold\", \"exhaustedBudgetShare\", \"ctr\", \"pno\", \"ish\", \"ishContext\", \"ishSum\", \"avgCpt\"]\n}\n]"
+						},
+						"url": {
+							"raw": "{{proxy}}ads.readReport",
+							"host": [
+								"{{proxy}}ads",
+								"readReport"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ReadReport Video",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n\"{{reportIdTemp}}\",\n{\n\t\"offset\" : 0,\n\t\"limit\" : 10,\n\t\"allowEmptyStatistics\" : true, \n\t\"displayColumns\": [\n\t\t\"skipRate\",\"views\",\"viewRate\",\"avgCostPerView\",\"viewershipRate\",\n\t\t\"adStatus\",\"adType\",\"clickthruText\",\"clickthruUrl\",\"createDate\",\"creative1\",\"clickMoney\",\"clicks\",\"conversions\",\"conversionValue\",\"impressionMoney\",\"impressions\",\"totalMoney\",\"transactions\",\"missImpressions\",\"underLowerThreshold\",\"exhaustedBudget\",\"stoppedBySchedule\",\"underForestThreshold\",\"exhaustedBudgetShare\",\"ctr\",\"pno\",\"ish\",\"ishContext\",\"ishSum\"]\n}\n]"
+						},
+						"url": {
+							"raw": "{{proxy}}ads.readReport",
+							"host": [
+								"{{proxy}}ads",
+								"readReport"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ReadReport - split by device",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n\"{{reportIdTemp}}\",\n{\n\t\"offset\" : 0,\n\t\"limit\" : 5000,\n\t\"allowEmptyStatistics\" : true, \n\t\"displayColumns\": [\"adStatus\",\"adType\",\"clickthruText\",\"clickthruUrl\",\"createDate\",\"creative1\",\"creative2\",\"creative3\",\"deleted\",\"deleteDate\",\"description\",\"description2\",\"finalUrl\",\"headline1\",\"headline2\",\"headline3\",\"id\",\"path1\",\"path2\",\"longLine\",\"shortLine\",\"name\",\"companyName\",\"image.id\",\"image.url\",\"image.width\",\"image.height\",\"image.size\",\"imageLogo.id\",\"imageLogo.url\",\"imageLogo.width\",\"imageLogo.height\",\"imageLogo.size\",\"imageSquare.id\",\"imageSquare.url\",\"imageSquare.width\",\"imageSquare.height\",\"imageSquare.size\",\"imageLandscapeLogo.id\",\"imageLandscapeLogo.url\",\"imageLandscapeLogo.width\",\"imageLandscapeLogo.height\",\"imageLandscapeLogo.size\",\"mobileFinalUrl\",\"impressionTrackingTemplate\",\"premiseId\",\"premiseModeId\",\"premiseMode\",\"sensitivity\",\"status\",\"trackingTemplate\",\"group.id\",\"group.name\",\"group.deleted\",\"group.createDate\",\"group.deleteDate\",\"group.maxCpc\",\"group.maxCpt\",\"campaign.actualClicks\",\"campaign.createDate\",\"campaign.deleteDate\",\"campaign.deleted\",\"campaign.endDate\",\"campaign.id\",\"campaign.name\",\"campaign.startDate\",\"campaign.totalBudgetFrom\",\"campaign.totalClicksFrom\",\"campaign.totalClicks\",\"avgCpc\",\"avgPos\",\"clickMoney\",\"clicks\",\"conversions\",\"conversionValue\",\"impressionMoney\",\"impressions\",\"totalMoney\",\"transactions\",\"missImpressions\",\"underLowerThreshold\",\"exhaustedBudget\",\"stoppedBySchedule\",\"underForestThreshold\",\"exhaustedBudgetShare\",\"ctr\",\"pno\",\"ish\",\"ishContext\",\"ishSum\"]\n}\n]"
 						},
 						"url": {
 							"raw": "{{proxy}}ads.readReport",
@@ -214,7 +262,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n{\n\t\"isDeleted\" : false\t\n},\n{\n\t\"offset\" : 0,\n\t\"limit\" : 20,\n\t\"displayColumns\": [\"adStatus\",\"adType\",\"clickthruText\",\"clickthruUrl\",\"createDate\",\"creative1\",\"creative2\",\"creative3\",\"deleted\",\"deleteDate\",\"description\",\"description2\",\"finalUrl\",\"headline1\",\"headline2\",\"headline3\",\"id\",\"path1\",\"path2\",\"longLine\",\"shortLine\",\"name\",\"companyName\",\"image.id\",\"image.url\",\"image.width\",\"image.height\",\"image.size\",\"imageLogo.id\",\"imageLogo.url\",\"imageLogo.width\",\"imageLogo.height\",\"imageLogo.size\",\"imageSquare.id\",\"imageSquare.url\",\"imageSquare.width\",\"imageSquare.height\",\"imageSquare.size\",\"imageLandscapeLogo.id\",\"imageLandscapeLogo.url\",\"imageLandscapeLogo.width\",\"imageLandscapeLogo.height\",\"imageLandscapeLogo.size\",\"mobileFinalUrl\",\"impressionTrackingTemplate\",\"premiseId\",\"premiseModeId\",\"premiseMode\",\"sensitivity\",\"status\",\"statusId\",\"trackingTemplate\",\"group.id\",\"group.name\",\"group.deleted\",\"group.createDate\",\"group.deleteDate\",\"group.maxCpc\",\"group.maxCpcContext\",\"group.maxCpt\",\"campaign.actualClicks\",\"campaign.createDate\",\"campaign.deleteDate\",\"campaign.deleted\",\"campaign.endDate\",\"campaign.id\",\"campaign.name\",\"campaign.startDate\",\"campaign.totalBudgetFrom\",\"campaign.totalClicksFrom\",\"campaign.totalClicks\"]\n}\n]"
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n{\n\t\"isDeleted\" : false\t\n},\n{\n\t\"offset\" : 0,\n\t\"limit\" : 20,\n\t\"displayColumns\": [\"adStatus\",\"adType\",\"clickthruText\",\"clickthruUrl\",\"createDate\",\"creative1\",\"creative2\",\"creative3\",\"deleted\",\"deleteDate\",\"description\",\"description2\",\"finalUrl\",\"headline1\",\"headline2\",\"headline3\",\"id\",\"path1\",\"path2\",\"longLine\",\"shortLine\",\"name\",\"companyName\",\"image.id\",\"image.url\",\"image.width\",\"image.height\",\"image.size\",\"imageLogo.id\",\"imageLogo.url\",\"imageLogo.width\",\"imageLogo.height\",\"imageLogo.size\",\"imageSquare.id\",\"imageSquare.url\",\"imageSquare.width\",\"imageSquare.height\",\"imageSquare.size\",\"imageLandscapeLogo.id\",\"imageLandscapeLogo.url\",\"imageLandscapeLogo.width\",\"imageLandscapeLogo.height\",\"imageLandscapeLogo.size\",\"mobileFinalUrl\",\"impressionTrackingTemplate\",\"premiseId\",\"premiseModeId\",\"premiseMode\",\"sensitivity\",\"status\",\"statusId\",\"trackingTemplate\",\"group.id\",\"group.name\",\"group.deleted\",\"group.createDate\",\"group.deleteDate\",\"group.maxCpc\",\"group.maxCpt\",\"campaign.actualClicks\",\"campaign.createDate\",\"campaign.deleteDate\",\"campaign.deleted\",\"campaign.endDate\",\"campaign.id\",\"campaign.name\",\"campaign.startDate\",\"campaign.totalBudgetFrom\",\"campaign.totalClicksFrom\",\"campaign.totalClicks\"]\n}\n]"
 						},
 						"url": {
 							"raw": "{{proxy}}ads.list",
@@ -240,7 +288,33 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n[\n\t{\n\t\t\"requestId\" : 1288,\n\t\t\"groupId\" : {{groupId}},\n\t\t\"adType\" : \"eta\",\n\t\t\"headline1\" : \"Headline 1 text\",\n\t\t\"headline2\" : \"Headline 2 text\",\n\t\t\"headline3\" : \"Headline 3 text\",\n\t\t\"path1\" : \"Path1_w\",\n\t\t\"path2\" : \"Path2\",\n\t\t\"description\" : \"Descriptionw\",\n\t\t\"description2\" : \"Description 2\",\n\t\t\"finalUrl\" : \"https://www.sklik.cz/test\",\n\t\t\"trackingTemplate\" : \"https://www.sklik.cz?test=2\"\n\t}\n]]        \n       "
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n[\n\t{\n\t\t\"requestId\" : 1288,\n\t\t\"groupId\" : {{groupId}},\n\t\t\"adType\" : \"eta\",\n\t\t\"headline1\" : \"Headline 1 text1\",\n\t\t\"headline2\" : \"Headline 2 text\",\n\t\t\"headline3\" : \"Headline 3 text\",\n\t\t\"path1\" : \"Path1_w\",\n\t\t\"path2\" : \"Path2\",\n\t\t\"description\" : \"Descriptionw\",\n\t\t\"description2\" : \"Description 2\",\n\t\t\"finalUrl\" : \"https://www.sklik.cz/test\",\n\t\t\"trackingTemplate\" : \"https://www.sklik.cz?test=2\"\n\t}\n]]        \n       "
+						},
+						"url": {
+							"raw": "{{proxy}}ads.create",
+							"host": [
+								"{{proxy}}ads",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create ETA",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n[\n\t{\n\t\t\"requestId\" : 1288,\n\t\t\"groupId\" : 98935970,\n\t\t\"adType\" : \"eta\",\n\t\t\"headline1\" : \"Headline 1 text\",\n\t\t\"headline2\" : \"Headline 2 text\",\n\t\t\"headline3\" : \"Headline 3 text\",\n\t\t\"path1\" : \"Path1\",\n\t\t\"path2\" : \"Path2\",\n\t\t\"description\" : \"Descriptionw\",\n\t\t\"description2\" : \"Description 2\",\n\t\t\"finalUrl\" : \"https://www.sklik.cz/test\",\n\t\t\"trackingTemplate\" : \"https://www.sklik.cz?test=2\"\n\t}\n]]        \n       "
 						},
 						"url": {
 							"raw": "{{proxy}}ads.create",
@@ -281,6 +355,141 @@
 			]
 		},
 		{
+			"name": "Ads - number edit",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n[\n\t{\n\t\t\"description\" : \"Description 1399\",\n\t\t\"description2\" : \"Number 933 Kč\",\n\t\t\"headline1\" : \"1.293 or 1,233\",\n\t\t\"headline2\" : \"12:23:59 or 12:34.398\",\n\t\t\n\t\t\"groupId\" : {{groupIdToEditNumbers}},\n\t\t\"adType\" : \"eta\",\n\t\t\"finalUrl\" : \"https://www.sklik.cz/test\"\n\t},\n\t{\n\t\t\"description\" : \"Acc 123 Bcc 834 Ccc\",\n\t\t\"description2\" : \" 933 $\",\n\t\t\"headline1\" : \"1.293 or 1,233\",\n\t\t\"headline2\" : \"12:23:59 or 12:34.398\",\n\t\t\n\t\t\"groupId\" : {{groupIdToEditNumbers}},\n\t\t\"adType\" : \"eta\",\n\t\t\"finalUrl\" : \"https://www.sklik.cz/test\"\n\t}\n]]        \n       "
+						},
+						"url": {
+							"raw": "{{proxy}}ads.create",
+							"host": [
+								"{{proxy}}ads",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateIII",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n[\n\t{\n\t\t\"description\" : \"Vánoční nadílka pro všechny PPC specialisty je tu. bla bla bla bla bla blabal\",\n\t\t\"headline1\" : \"Text 3 text 3 text 4 text 5\",\n\t\t\"headline2\" : \"Text 2 text 2 text 2 text 8\",\n\t\t\"path1\": \"ppcHIT\",\n\t\t\"path2\": \"ETA\",\n\t\t\n\t\t\"groupId\" : {{groupIdToEditNumbersII}},\n\t\t\"adType\" : \"eta\",\n\t\t\"finalUrl\" : \"http://www.artrock.cz/\"\n\t}\n]]        \n       "
+						},
+						"url": {
+							"raw": "{{proxy}}ads.create",
+							"host": [
+								"{{proxy}}ads",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n[\n\t{\n\t\t\"id\" : 506359572,\n\t\t\"adType\": \"eta\",\n\t\t\"description\": \"Description 123456\",\n\t\t\"description2\": \"Number 933 Kč\",\n\t\t\"headline1\" : \"1.293 or 1,233\",\n\t\t\"headline2\" : \"12:23:59 or 12:34.398\"\n\t}\n]]        \n       "
+						},
+						"url": {
+							"raw": "{{proxy}}ads.update",
+							"host": [
+								"{{proxy}}ads",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateIII",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n[\n\t{\n\t\t\"id\" : 513543483,\n\t\t\"adType\": \"eta\",\n\t\t\"headline1\" : \"Text 3 text 5 text 4 text 5\"\n\t}\n]]        \n       "
+						},
+						"url": {
+							"raw": "{{proxy}}ads.update",
+							"host": [
+								"{{proxy}}ads",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update II",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n[\n\t{\n\t\t\"id\" : 506359571,\n\t\t\"adType\": \"eta\",\n\t\t\"description\": \"Description 123456\",\n\t\t\"description2\": \"Number 933 Kč\",\n\t\t\"headline1\" : \"33 or 13,99\",\n\t\t\"headline2\" : \"122:233 or 12:34.39843\"\n\t}\n]]        \n       "
+						},
+						"url": {
+							"raw": "{{proxy}}ads.update",
+							"host": [
+								"{{proxy}}ads",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Api",
 			"item": [
 				{
@@ -289,7 +498,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "dd06a237-722a-4cfe-bb45-1f4800d3dcc5",
 								"exec": [
 									""
 								],
@@ -327,7 +535,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "dd06a237-722a-4cfe-bb45-1f4800d3dcc5",
 								"exec": [
 									""
 								],
@@ -370,7 +577,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "dd06a237-722a-4cfe-bb45-1f4800d3dcc5",
 								"exec": [
 									"var jsonData = pm.response.json();",
 									"var reportId = jsonData[\"reportId\"];",
@@ -405,6 +611,45 @@
 					"response": []
 				},
 				{
+					"name": "CreateReport - splitByDevice",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var reportId = jsonData[\"reportId\"];",
+									"pm.environment.set(\"reportIdTemp\", reportId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\"session\" : \"{{session}}\",\"userId\" : {{userDefault}}},\n{\"dateFrom\":\"2018-01-01\", \"dateTo\":\"2018-01-02\", \"deviceType\": [\"devicePhone\", \"deviceTablet\", \"deviceAll\", \"deviceOther\", \"deviceDesktop\"]},\n{}\n]"
+						},
+						"url": {
+							"raw": "{{proxy}}ads.createReport",
+							"host": [
+								"{{proxy}}ads",
+								"createReport"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "ReadReport",
 					"request": {
 						"method": "POST",
@@ -418,7 +663,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n\"{{reportIdTemp}}\",\n{\n\t\"offset\" : 0,\n\t\"limit\" : 997,\n\t\"allowEmptyStatistics\" : false, \n\t\"displayColumns\": [\"adStatus\",\"adType\",\"clickthruText\",\"clickthruUrl\",\"createDate\",\"creative1\",\"creative2\",\"creative3\",\"deleted\",\"deleteDate\",\"description\",\"description2\",\"finalUrl\",\"headline1\",\"headline2\",\"headline3\",\"id\",\"path1\",\"path2\",\"longLine\",\"shortLine\",\"name\",\"companyName\",\"image.id\",\"image.url\",\"image.width\",\"image.height\",\"image.size\",\"imageLogo.id\",\"imageLogo.url\",\"imageLogo.width\",\"imageLogo.height\",\"imageLogo.size\",\"imageSquare.id\",\"imageSquare.url\",\"imageSquare.width\",\"imageSquare.height\",\"imageSquare.size\",\"imageLandscapeLogo.id\",\"imageLandscapeLogo.url\",\"imageLandscapeLogo.width\",\"imageLandscapeLogo.height\",\"imageLandscapeLogo.size\",\"mobileFinalUrl\",\"impressionTrackingTemplate\",\"premiseId\",\"premiseModeId\",\"premiseMode\",\"sensitivity\",\"status\",\"trackingTemplate\",\"group.id\",\"group.name\",\"group.deleted\",\"group.createDate\",\"group.deleteDate\",\"group.maxCpc\",\"group.maxCpcContext\",\"group.maxCpt\",\"campaign.actualClicks\",\"campaign.createDate\",\"campaign.deleteDate\",\"campaign.deleted\",\"campaign.endDate\",\"campaign.id\",\"campaign.name\",\"campaign.startDate\",\"campaign.totalBudgetFrom\",\"campaign.totalClicksFrom\",\"campaign.totalClicks\",\"avgCpc\",\"avgPos\",\"clickMoney\",\"clicks\",\"conversions\",\"conversionValue\",\"impressionMoney\",\"impressions\",\"totalMoney\",\"transactions\",\"missImpressions\",\"underLowerThreshold\",\"exhaustedBudget\",\"stoppedBySchedule\",\"underForestThreshold\",\"exhaustedBudgetShare\",\"ctr\",\"pno\",\"ish\",\"ishContext\",\"ishSum\"]\n}\n]"
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n\"{{reportIdTemp}}\",\n{\n\t\"offset\" : 0,\n\t\"limit\" : 997,\n\t\"allowEmptyStatistics\" : true, \n\t\"displayColumns\": [\"adStatus\",\"adType\",\"clickthruText\",\"clickthruUrl\",\"createDate\",\"creative1\",\"creative2\",\"creative3\",\"deleted\",\"deleteDate\",\"description\",\"description2\",\"finalUrl\",\"headline1\",\"headline2\",\"headline3\",\"id\",\"path1\",\"path2\",\"longLine\",\"shortLine\",\"name\",\"companyName\",\"image.id\",\"image.url\",\"image.width\",\"image.height\",\"image.size\",\"imageLogo.id\",\"imageLogo.url\",\"imageLogo.width\",\"imageLogo.height\",\"imageLogo.size\",\"imageSquare.id\",\"imageSquare.url\",\"imageSquare.width\",\"imageSquare.height\",\"imageSquare.size\",\"imageLandscapeLogo.id\",\"imageLandscapeLogo.url\",\"imageLandscapeLogo.width\",\"imageLandscapeLogo.height\",\"imageLandscapeLogo.size\",\"mobileFinalUrl\",\"impressionTrackingTemplate\",\"premiseId\",\"premiseModeId\",\"premiseMode\",\"sensitivity\",\"status\",\"trackingTemplate\",\"group.id\",\"group.name\",\"group.deleted\",\"group.createDate\",\"group.deleteDate\",\"group.maxCpc\",\"group.maxCpt\",\"campaign.actualClicks\",\"campaign.createDate\",\"campaign.deleteDate\",\"campaign.deleted\",\"campaign.endDate\",\"campaign.id\",\"campaign.name\",\"campaign.startDate\",\"campaign.totalBudgetFrom\",\"campaign.totalClicksFrom\",\"campaign.totalClicks\",\"avgCpc\",\"avgPos\",\"clickMoney\",\"clicks\",\"conversions\",\"conversionValue\",\"impressionMoney\",\"impressions\",\"totalMoney\",\"transactions\",\"missImpressions\",\"underLowerThreshold\",\"exhaustedBudget\",\"stoppedBySchedule\",\"underForestThreshold\",\"exhaustedBudgetShare\",\"ctr\",\"pno\",\"ish\",\"ishContext\",\"ishSum\"]\n}\n]"
 						},
 						"url": {
 							"raw": "{{proxy}}ads.readReport",
@@ -444,7 +689,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n{\n\t\"isDeleted\" : false\n},\n{\n\t\"offset\" : 0,\n\t\"limit\" : 20,\n\t\"displayColumns\": [\"adStatus\",\"adType\",\"bannerName\",\"createDate\",\"clickthruUrl\",\"deleted\",\"deleteDate\",\"description\",\"mobileFinalUrl\",\"height\",\"id\",\"image.id\",\"image.url\",\"image.width\",\"image.height\",\"image.size\",\"imageType\",\"imageUrl\",\"width\",\"premiseId\",\"premiseModeId\",\"premiseMode\",\"status\",\"statusId\",\"sensitivity\",\"campaign.actualClicks\",\"campaign.createDate\",\"campaign.deleteDate\",\"campaign.deleted\",\"campaign.endDate\",\"campaign.id\",\"campaign.name\",\"campaign.startDate\",\"campaign.totalBudgetFrom\",\"campaign.totalClicksFrom\",\"campaign.totalClicks\",\"campaign.status\",\"group.id\",\"group.name\",\"group.deleted\",\"group.createDate\",\"group.deleteDate\",\"group.maxCpc\",\"group.maxCpcContext\",\"group.maxCpt\",\"group.status\"]\n}\n]"
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n{\n\t\"isDeleted\" : false\n},\n{\n\t\"offset\" : 0,\n\t\"limit\" : 20,\n\t\"displayColumns\": [\"adStatus\",\"adType\",\"bannerName\",\"createDate\",\"clickthruUrl\",\"deleted\",\"deleteDate\",\"description\",\"mobileFinalUrl\",\"height\",\"id\",\"image.id\",\"image.url\",\"image.width\",\"image.height\",\"image.size\",\"imageType\",\"imageUrl\",\"width\",\"premiseId\",\"premiseModeId\",\"premiseMode\",\"status\",\"statusId\",\"sensitivity\",\"campaign.actualClicks\",\"campaign.createDate\",\"campaign.deleteDate\",\"campaign.deleted\",\"campaign.endDate\",\"campaign.id\",\"campaign.name\",\"campaign.startDate\",\"campaign.totalBudgetFrom\",\"campaign.totalClicksFrom\",\"campaign.totalClicks\",\"campaign.status\",\"group.id\",\"group.name\",\"group.deleted\",\"group.createDate\",\"group.deleteDate\",\"group.maxCpc\",\"group.maxCpt\",\"group.status\"]\n}\n]"
 						},
 						"url": {
 							"raw": "{{proxy}}banners.list",
@@ -455,39 +700,12 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "Check",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n[\n\t{\n        \"dayBudget\" : 3000, \n        \"name\" : \"Testovani alfa beta gama3\", \n        \"targetDevices\" : {\"mobile\" : true, \"other\" : true, \"tablet\" : true, \"desktop\" : true},\n        \"type\" : \"fulltext\",\n        \"adSelection\" : \"weighted\",\n        \"excludedSearchServices\" : []\n\t},\n\t{\n        \"dayBudget\" : 3000, \n        \"name\" : \"Testovani alfa beta gama3\", \n        \"targetDevices\" : {\"mobile\" : true, \"other\" : true, \"tablet\" : true, \"desktop\" : true},\n        \"type\" : \"fulltext\",\n        \"adSelection\" : \"weighted\",\n        \"excludedSearchServices\" : []\n\t}\n]]        \n       "
-						},
-						"url": {
-							"raw": "{{proxy}}banners.check",
-							"host": [
-								"{{proxy}}banners",
-								"check"
-							]
-						}
-					},
-					"response": []
 				}
 			],
 			"event": [
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "3a87d749-3c15-428e-8541-54f639316d35",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -497,7 +715,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "2477a299-410c-4bfa-9be1-82e6fff367e0",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -515,7 +732,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "7c840788-46db-46ec-9238-b45feb55abef",
 								"exec": [
 									"var jsonData = pm.response.json();",
 									"var session = jsonData[\"session\"];",
@@ -550,52 +766,11 @@
 					"response": []
 				},
 				{
-					"name": "Login",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "7c840788-46db-46ec-9238-b45feb55abef",
-								"exec": [
-									"var jsonData = pm.response.json();",
-									"var session = jsonData[\"session\"];",
-									"pm.environment.set(\"session\", session);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "[\"{{username}}\",\"{{password}}\"]"
-						},
-						"url": {
-							"raw": "{{proxy}}client.login",
-							"host": [
-								"{{proxy}}client",
-								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Get",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
-								"id": "dd06a237-722a-4cfe-bb45-1f4800d3dcc5",
 								"exec": [
 									""
 								],
@@ -633,7 +808,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "dd06a237-722a-4cfe-bb45-1f4800d3dcc5",
 								"exec": [
 									""
 								],
@@ -671,7 +845,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "dd06a237-722a-4cfe-bb45-1f4800d3dcc5",
 								"exec": [
 									""
 								],
@@ -709,7 +882,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "dd06a237-722a-4cfe-bb45-1f4800d3dcc5",
 								"exec": [
 									""
 								],
@@ -740,13 +912,49 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Stats Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" :  263764\n}, {\n\t\"dateFrom\" : \"2019-01-01\", \n\t\"dateTo\" : \"2019-01-05\",\n\t\"granularity\" : \"total\",\n\t\"includeFulltext\" : true,\n\t\"includeContext\" : true,\n\t\"splitByConversions\" : true\n}]"
+						},
+						"url": {
+							"raw": "{{proxy}}client.stats",
+							"host": [
+								"{{proxy}}client",
+								"stats"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"event": [
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "e0d85eef-8781-4532-a59c-39ee3971eae7",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -756,7 +964,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "215d1231-22bb-4084-9f7d-7072ec9101ea",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -774,7 +981,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "dd06a237-722a-4cfe-bb45-1f4800d3dcc5",
 								"exec": [
 									"var jsonData = pm.response.json();",
 									"var reportId = jsonData[\"reportId\"];",
@@ -796,7 +1002,46 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[\n{\"session\" : \"{{session}}\",\"userId\" : {{userDefault}}},\n{\"dateFrom\":\"2019-01-01\", \"dateTo\":\"2019-04-01\"},\n{\"statGranularity\": \"monthly\"}\n]"
+							"raw": "[\n{\"session\" : \"{{session}}\",\"userId\" : {{userDefault}}},\n{\"dateFrom\":\"2021-03-01\", \"dateTo\":\"2021-03-20\", \"type\": [\"context\"]},\n{\"statGranularity\": \"total\"}\n]"
+						},
+						"url": {
+							"raw": "{{proxy}}campaigns.createReport",
+							"host": [
+								"{{proxy}}campaigns",
+								"createReport"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateReport-splitByDevice",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var reportId = jsonData[\"reportId\"];",
+									"pm.environment.set(\"reportIdTemp\", reportId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\"session\" : \"{{session}}\",\"userId\" : {{userDefault}}},\n{\n\t\"dateFrom\":\"2020-04-01\", \n\t\"dateTo\":\"2020-04-22\",\n\t\"deviceType\": [\"devicePhone\", \"deviceTablet\", \"deviceAll\", \"deviceOther\", \"deviceDesktop\"]\n},\n{\"statGranularity\": \"daily\"}\n]"
 						},
 						"url": {
 							"raw": "{{proxy}}campaigns.createReport",
@@ -822,7 +1067,33 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n\"{{reportIdTemp}}\",\n{\n\t\"offset\" : 0,\n\t\"limit\" : 10,\n\t\"allowEmptyStatistics\" : false, \n\t\"displayColumns\": [\"actualClicks\",\"adSelection\",\"automaticLocation\",\"context\",\"contextNetwork\",\"createDate\",\"deleted\",\"deleteDate\",\"defaultBudgetId\",\"deviceDesktop\",\"deviceTablet\",\"deviceMobil\",\"deviceOther\",\"endDate\",\"exhaustedTotalBudget\",\"fulltext\",\"id\",\"name\",\"paymentMethod\",\"startDate\",\"status\",\"totalClicks\",\"totalClicksFrom\",\"type\",\"totalBudget\",\"budget.colorCodeId\",\"budget.dayBudget\",\"budget.deleted\",\"budget.deleteDate\",\"budget.id\",\"budget.name\",\"avgCpc\",\"avgPos\",\"clickMoney\",\"clicks\",\"conversions\",\"conversionValue\",\"impressionMoney\",\"impressions\",\"totalMoney\",\"transactions\",\"missImpressions\",\"underLowerThreshold\",\"exhaustedBudget\",\"stoppedBySchedule\",\"underForestThreshold\",\"exhaustedBudgetShare\",\"ctr\",\"pno\",\"ish\",\"ishContext\",\"ishSum\",\"devicesPriceRatio\"]\n}\n]"
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n\"{{reportIdTemp}}\",\n{\n\t\"offset\" : 0,\n\t\"limit\" : 10,\n\t\"allowEmptyStatistics\" : true, \n\t\"displayColumns\": [\"actualClicks\",\"adSelection\",\"automaticLocation\",\"context\",\"contextNetwork\",\"createDate\",\"deleted\",\"deleteDate\",\"defaultBudgetId\",\"endDate\",\"exhaustedTotalBudget\",\"fulltext\",\"id\",\"name\",\"paymentMethod\",\"startDate\",\"status\",\"totalClicks\",\"totalClicksFrom\",\"type\",\"totalBudget\",\"budget.colorCodeId\",\"budget.dayBudget\",\"budget.deleted\",\"budget.deleteDate\",\"budget.id\",\"budget.name\",\"avgCpc\",\"avgPos\",\"clickMoney\",\"clicks\",\"conversions\",\"conversionValue\",\"impressionMoney\",\"impressions\",\"totalMoney\",\"transactions\",\"missImpressions\",\"underLowerThreshold\",\"exhaustedBudget\",\"stoppedBySchedule\",\"underForestThreshold\",\"exhaustedBudgetShare\",\"ctr\",\"pno\",\"ish\",\"ishContext\",\"ishSum\",\"devicesPriceRatio\"]\n}\n]"
+						},
+						"url": {
+							"raw": "{{proxy}}campaigns.readReport",
+							"host": [
+								"{{proxy}}campaigns",
+								"readReport"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ReadReport-splitByDevice",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n\"{{reportIdTemp}}\",\n{\n\t\"offset\" : 0,\n\t\"limit\" : 50,\n\t\"allowEmptyStatistics\" : true, \n\t\"displayColumns\": [\"id\",\"name\",\"totalClicks\",\"clicks\",\"impressions\"]\n}\n]"
 						},
 						"url": {
 							"raw": "{{proxy}}campaigns.readReport",
@@ -848,7 +1119,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n{\n\t\"isDeleted\" : false\n},\n{\n\t\"offset\" : 0,\n\t\"limit\" : 200,\n\t\"displayColumns\": [\"actualClicks\",\"adSelection\",\"automaticLocation\",\"context\",\"contextNetwork\",\"createDate\",\"deleted\",\"deleteDate\",\"defaultBudgetId\",\"deviceDesktop\",\"deviceTablet\",\"deviceMobil\",\"deviceOther\",\"endDate\",\"exhaustedTotalBudget\",\"fulltext\",\"id\",\"name\",\"paymentMethod\",\"startDate\",\"status\",\"statusId\",\"totalClicks\",\"totalClicksFrom\",\"type\",\"totalBudget\",\"budget.colorCodeId\",\"budget.dayBudget\",\"budget.deleted\",\"budget.deleteDate\",\"budget.id\",\"budget.name\"]\n}\n]"
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n{\n\t\"isDeleted\" : false\n},\n{\n\t\"offset\" : 0,\n\t\"limit\" : 200,\n\t\"displayColumns\": [\"actualClicks\", \"adSelection\", \"automaticLocation\", \"budget.colorCodeId\", \"budget.dayBudget\", \"budget.deleted\",\n\"budget.deleteDate\", \"budget.id\", \"budget.name\", \"context\", \"contextNetwork\", \"createDate\", \"deleted\", \"deleteDate\",\n\"defaultBudgetId\", \"devicesPriceRatio\", \"endDate\", \"excludedSearchServices\", \"excludedUrls\", \"exhaustedTotalBudget\",\n\"fulltext\", \"id\", \"name\", \"paymentMethod\", \"premises.id\", \"phone.number\", \"phone.statusId\", \"phone.status\",\n\"regions.id\", \"regions.parentId\", \"regions.name\", \"schedule\", \"scheduleEnabled\", \"startDate\", \"status\", \"statusId\",\n\"totalClicks\", \"totalClicksFrom\", \"totalBudgetFrom\", \"type\", \"totalBudget\", \"videoFormat\"]\n}\n]"
 						},
 						"url": {
 							"raw": "{{proxy}}campaigns.list",
@@ -950,7 +1221,33 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n[\n\t{\n        \"dayBudget\" : 3000, \n        \"name\" : \"Testovani alfa beta gama3\", \n        \"targetDevices\" : {\"mobile\" : true, \"other\" : true, \"tablet\" : true, \"desktop\" : true},\n        \"type\" : \"fulltext\",\n        \"adSelection\" : \"weighted\"\n\t},\n\t{\n        \"dayBudget\" : 3000, \n        \"name\" : \"Testovani alfa beta gama4\", \n        \"targetDevices\" : {\"mobile\" : true, \"other\" : true, \"tablet\" : true, \"desktop\" : true},\n        \"type\" : \"fulltext\",\n        \"adSelection\" : \"weighted\"\n\t}\n]]        \n       "
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n[\n\t{\n        \"dayBudget\" : 3000, \n        \"name\" : \"Testovani alfa beta gama3\",\n        \"type\" : \"fulltext\",\n        \"adSelection\" : \"weighted\"\n\t},\n\t{\n        \"dayBudget\" : 3000, \n        \"name\" : \"Testovani alfa beta gama4\",\n        \"type\" : \"fulltext\",\n        \"adSelection\" : \"weighted\"\n\t}\n]]        \n       "
+						},
+						"url": {
+							"raw": "{{proxy}}campaigns.check",
+							"host": [
+								"{{proxy}}campaigns",
+								"check"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n[\n\t{\n        \"dayBudget\" : 3000, \n        \"name\" : \"ddddt\\u0026C adf+%ü\", \n        \"type\" : \"fulltext\",\n        \"adSelection\" : \"weighted\"\n\t},\n\t{\n        \"dayBudget\" : 3000, \n        \"name\" : \"Neconeco / neco nec |neco neco+%ü\", \n        \"type\" : \"fulltext\",\n        \"adSelection\" : \"weighted\"\n\t}\n]]        \n       "
 						},
 						"url": {
 							"raw": "{{proxy}}campaigns.check",
@@ -976,13 +1273,65 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n[\n\t{\n        \"id\" : {{campainId}}, \n        \"name\" : \"TestName\", \n        \"excludedSearchServices\" : [],\n        \"type\" : \"combined\"\n\t}\n]]        \n       "
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n[\n\t{\n        \"id\" : 3093106, \n        \"name\" : \"Simple Ads First test\", \n        \"type\" : \"context\",\n        \"dayBudget\": 40000\n\t}\n]]        \n       "
 						},
 						"url": {
 							"raw": "{{proxy}}campaigns.update",
 							"host": [
 								"{{proxy}}campaigns",
 								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Conversions",
+			"item": [
+				{
+					"name": "Conversions.list",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n{\"session\" : \"{{session}}\",\"userId\" : {{userDefault}}}\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{proxy}}conversions.list",
+							"host": [
+								"{{proxy}}conversions",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listConversionTypes",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n{\"session\" : \"{{session}}\",\"userId\" : {{userDefault}}}]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{proxy}}listConversionTypes",
+							"host": [
+								"{{proxy}}listConversionTypes"
 							]
 						}
 					},
@@ -999,7 +1348,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "dd06a237-722a-4cfe-bb45-1f4800d3dcc5",
 								"exec": [
 									"var jsonData = pm.response.json();",
 									"var reportId = jsonData[\"reportId\"];",
@@ -1021,7 +1369,46 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[{\n\t\"session\" : \"{{session}}\",\n\t\"userId\" : {{userDefault}}\n},\n{\n\t\"ids\" : [12345],\n\t\"dateFrom\":\"2019-02-01\", \n\t\"dateTo\":\"2019-04-04\"\n},\n{}]"
+							"raw": "[{\n\t\"session\" : \"{{session}}\",\n\t\"userId\" : {{userDefault}}\n},\n{\n\t\"ids\" : [77697612],\n\t\"dateFrom\":\"2019-02-01\", \n\t\"dateTo\":\"2019-04-04\"\n},\n{}]"
+						},
+						"url": {
+							"raw": "{{proxy}}groups.createReport",
+							"host": [
+								"{{proxy}}groups",
+								"createReport"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateReport - splitByDevice",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var reportId = jsonData[\"reportId\"];",
+									"pm.environment.set(\"reportIdTemp\", reportId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n\t\"session\" : \"{{session}}\",\n\t\"userId\" : {{userWithVideo}}\n},\n{\n\t\"dateFrom\":\"2020-01-01\", \n\t\"dateTo\":\"2020-02-01\",\n\t\"deviceType\": [\"devicePhone\", \"deviceTablet\", \"deviceAll\", \"deviceOther\", \"deviceDesktop\"]\n},\n{}]"
 						},
 						"url": {
 							"raw": "{{proxy}}groups.createReport",
@@ -1047,7 +1434,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n\"{{reportIdTemp}}\",\n{\n\t\"offset\" : 0,\n\t\"limit\" : 10,\n\t\"allowEmptyStatistics\" : false, \n\t\"displayColumns\": [\"createDate\",\"deleted\",\"deleteDate\",\"id\",\"maxCpc\",\"maxCpcContext\",\"maxUserDailyImpressions\",\"maxCpt\",\"name\",\"sensitivity\",\"status\",\"statusId\",\"campaign.actualClicks\",\"campaign.automaticLocation\",\"campaign.adSelectionId\",\"campaign.createDate\",\"campaign.context\",\"campaign.deleteDate\",\"campaign.deleted\",\"campaign.deviceDesktop\",\"campaign.deviceTablet\",\"campaign.deviceMobil\",\"campaign.deviceOther\",\"campaign.endDate\",\"campaign.fulltext\",\"campaign.id\",\"campaign.name\",\"campaign.paymentMethodId\",\"campaign.startDate\",\"campaign.status\",\"campaign.statusId\",\"campaign.totalClicks\",\"campaign.totalBudgetFrom\",\"campaign.totalClicksFrom\",\"avgCpc\",\"avgPos\",\"clickMoney\",\"clicks\",\"conversions\",\"conversionValue\",\"impressionMoney\",\"impressions\",\"totalMoney\",\"transactions\",\"missImpressions\",\"underLowerThreshold\",\"exhaustedBudget\",\"stoppedBySchedule\",\"underForestThreshold\",\"exhaustedBudgetShare\",\"ctr\",\"pno\",\"ish\",\"ishContext\",\"ishSum\",\"devicesPriceRatio\", \"campaign.devicesPriceRatio\"]\n}\n]"
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n\"{{reportIdTemp}}\",\n{\n\t\"offset\" : 0,\n\t\"limit\" : 10,\n\t\"allowEmptyStatistics\" : true, \n\t\"displayColumns\": [\n                    \"createDate\",\n                    \"deleted\",\n                    \"deleteDate\",\n                    \"id\",\n                    \"maxCpc\",\n                    \"maxUserDailyImpressions\",\n                    \"maxCpt\",\n                    \"name\",\n                    \"sensitivity\",\n                    \"status\",\n                    \"statusId\",\n                    \"devicesPriceRatio\",\n                    \"campaign.actualClicks\",\n                    \"campaign.automaticLocation\",\n                    \"campaign.adSelection\",\n                    \"campaign.adSelectionId\",\n                    \"campaign.createDate\",\n                    \"campaign.context\",\n                    \"campaign.contextNetwork\",\n                    \"campaign.deleteDate\",\n                    \"campaign.deleted\",\n                    \"campaign.devicesPriceRatio\",\n                    \"campaign.endDate\",\n                    \"campaign.exhaustedTotalBudget\",\n                    \"campaign.fulltext\",\n                    \"campaign.id\",\n                    \"campaign.name\",\n                    \"campaign.paymentMethod\",\n                    \"campaign.paymentMethodId\",\n                    \"campaign.startDate\",\n                    \"campaign.status\",\n                    \"campaign.statusId\",\n                    \"campaign.totalClicks\",\n                    \"campaign.totalBudget\",\n                    \"campaign.totalBudgetFrom\",\n                    \"campaign.totalClicksFrom\",\n                    \"avgCpc\",\n                    \"avgPos\",\n                    \"clickMoney\",\n                    \"clicks\",\n                    \"conversions\",\n                    \"conversionValue\",\n                    \"impressionMoney\",\n                    \"impressions\",\n                    \"totalMoney\",\n                    \"transactions\",\n                    \"missImpressions\",\n                    \"underLowerThreshold\",\n                    \"exhaustedBudget\",\n                    \"stoppedBySchedule\",\n                    \"underForestThreshold\",\n                    \"exhaustedBudgetShare\",\n                    \"ctr\",\n                    \"pno\",\n                    \"ish\",\n                    \"ishContext\",\n                    \"ishSum\",\n                    \"avgCpt\",\n                    \"winRate\"]\n}\n]"
 						},
 						"url": {
 							"raw": "{{proxy}}groups.readReport",
@@ -1073,7 +1460,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n{\n\t\"isDeleted\" : false\t\n},\n{\n\t\"offset\" : 0,\n\t\"limit\" : 20,\n\t\"displayColumns\": [\"createDate\",\"deleted\",\"deleteDate\",\"id\",\"maxCpc\",\"maxCpcContext\",\"maxUserDailyImpressions\",\"maxCpt\",\"name\",\"sensitivity\",\"status\",\"statusId\",\"campaign.actualClicks\",\"campaign.automaticLocation\",\"campaign.adSelectionId\",\"campaign.createDate\",\"campaign.context\",\"campaign.deleteDate\",\"campaign.deleted\",\"campaign.deviceDesktop\",\"campaign.deviceTablet\",\"campaign.deviceMobil\",\"campaign.deviceOther\",\"campaign.endDate\",\"campaign.fulltext\",\"campaign.id\",\"campaign.name\",\"campaign.paymentMethodId\",\"campaign.startDate\",\"campaign.status\",\"campaign.statusId\",\"campaign.totalClicks\",\"campaign.totalBudgetFrom\",\"campaign.totalClicksFrom\"]\n}\n]"
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n{\n\t\"isDeleted\" : false\t\n},\n{\n\t\"offset\" : 0,\n\t\"limit\" : 20,\n\t\"displayColumns\": [\"createDate\", \"deleted\", \"deleteDate\", \"id\", \"maxCpc\", \"maxUserDailyImpressions\", \"maxCpt\", \"name\",\n\"sensitivity\", \"status\", \"statusId\", \"devicesPriceRatio\", \"campaign.actualClicks\", \"campaign.automaticLocation\",\n\"campaign.adSelection\", \"campaign.adSelectionId\", \"campaign.createDate\", \"campaign.context\", \"campaign.contextNetwork\",\n\"campaign.deleteDate\", \"campaign.deleted\", \"campaign.devicesPriceRatio\", \"campaign.endDate\",\n\"campaign.exhaustedTotalBudget\", \"campaign.fulltext\", \"campaign.id\", \"campaign.name\", \"campaign.paymentMethod\",\n\"campaign.paymentMethodId\", \"campaign.startDate\", \"campaign.status\", \"campaign.statusId\", \"campaign.totalClicks\",\n\"campaign.totalBudget\", \"campaign.totalBudgetFrom\", \"campaign.totalClicksFrom\"]\n}\n]"
 						},
 						"url": {
 							"raw": "{{proxy}}groups.list",
@@ -1099,13 +1486,39 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n[\n\t{\n        \"campaignId\": 1340940,\n        \"name\" : \"test10002\",\n        \"cpc\" : 1000,\n        \"cpcContext\" : 1000,\n        \"status\": \"active\"\n\t},\n\t{\n        \"campaignId\": 1340940,\n        \"name\" : \"test10002\",\n        \"cpc\" : 1000,\n        \"cpcContext\" : 1000,\n        \"status\": \"active\"\n\t}\n]]        \n       "
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n[\n\t{\n        \"campaignId\": 1340940,\n        \"name\" : \"test10002\",\n        \"cpc\" : 1000,\n        \"status\": \"active\"\n\t},\n\t{\n        \"campaignId\": 1340940,\n        \"name\" : \"test10002\",\n        \"cpc\" : 1000,\n        \"status\": \"active\"\n\t}\n]]        \n       "
 						},
 						"url": {
 							"raw": "{{proxy}}groups.check",
 							"host": [
 								"{{proxy}}groups",
 								"check"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Groups.remove",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n[107680207,107680207]\n]        \n       "
+						},
+						"url": {
+							"raw": "{{proxy}}groups.remove",
+							"host": [
+								"{{proxy}}groups",
+								"remove"
 							]
 						}
 					},
@@ -1125,7 +1538,33 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n[\n\t{\n        \"campaignId\": 1427654,\n        \"name\" : \"__alfa2\",\n        \"cpc\" : 1000,\n        \"cpcContext\" : 1000,\n        \"status\": \"active\",\n        \"maxUserDailyImpression\" : 3\n\t}\n]]        \n       "
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n[\n\t{\n        \"campaignId\": 1427654,\n        \"name\" : \"__alfa22\",\n        \"cpc\" : 1000,\n        \"status\": \"active\",\n        \"maxUserDailyImpression\" : 3\n\t}\n]]        \n       "
+						},
+						"url": {
+							"raw": "{{proxy}}groups.create",
+							"host": [
+								"{{proxy}}groups",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create II",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n[\n\t{\n        \"campaignId\": 1962025,\n        \"name\" : \"group_011\",\n        \"cpc\" : 1000,\n        \"status\": \"active\",\n        \"maxUserDailyImpression\" : 3\n\t}\n]]        \n       "
 						},
 						"url": {
 							"raw": "{{proxy}}groups.create",
@@ -1142,7 +1581,6 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "279f4929-9af5-4609-b9b4-e237e1c1d219",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -1152,7 +1590,70 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "4c1d0cfe-ff45-468c-a0d1-e16b42b5ca9a",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Images",
+			"item": [
+				{
+					"name": "Images.list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var reportId = jsonData[\"reportId\"];",
+									"pm.environment.set(\"reportIdTemp\", reportId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n\t\"session\" : \"{{session}}\",\n\t\"userId\" : {{userDefault}}\n}]"
+						},
+						"url": {
+							"raw": "{{proxy}}images.list",
+							"host": [
+								"{{proxy}}images",
+								"list"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -1170,7 +1671,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "dd06a237-722a-4cfe-bb45-1f4800d3dcc5",
 								"exec": [
 									"var jsonData = pm.response.json();",
 									"var reportId = jsonData[\"reportId\"];",
@@ -1210,7 +1710,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "dd06a237-722a-4cfe-bb45-1f4800d3dcc5",
 								"exec": [
 									"var jsonData = pm.response.json();",
 									"var reportId = jsonData[\"reportId\"];",
@@ -1250,7 +1749,6 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "3a87d749-3c15-428e-8541-54f639316d35",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -1260,7 +1758,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "2477a299-410c-4bfa-9be1-82e6fff367e0",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -1278,7 +1775,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "dd06a237-722a-4cfe-bb45-1f4800d3dcc5",
 								"exec": [
 									"var jsonData = pm.response.json();",
 									"var reportId = jsonData[\"reportId\"];",
@@ -1317,7 +1813,6 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "3a87d749-3c15-428e-8541-54f639316d35",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -1327,7 +1822,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "2477a299-410c-4bfa-9be1-82e6fff367e0",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -1345,7 +1839,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "dd06a237-722a-4cfe-bb45-1f4800d3dcc5",
 								"exec": [
 									"var jsonData = pm.response.json();",
 									"var reportId = jsonData[\"reportId\"];",
@@ -1367,7 +1860,85 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[{\n\t\"session\" : \"{{session}}\",\n\t\"userId\" : {{userDefault}}\n},\n{\n\t\"dateFrom\" : \"2018-01-01\", \n\t\"dateTo\" : \"2018-01-02\",\n\t\"campaign\" : {\n\t\t\"ids\" : [1267558]\t\n\t},\n\t\"maxCpc\" : [{\n\t\t\"operator\": \"GT\",\n\t\t\"value\": 100\n\t}]\n},\n{}]"
+							"raw": "[{\n\t\"session\" : \"{{session}}\",\n\t\"userId\" : {{userDefault}}\n},\n{\n\t\"dateFrom\" : \"2020-01-01\", \n\t\"dateTo\" : \"2020-02-02\",\n\t\"maxCpc\" : [{\n\t\t\"operator\": \"GT\",\n\t\t\"value\": 1\n\t}]\n},\n{}]"
+						},
+						"url": {
+							"raw": "{{proxy}}keywords.createReport",
+							"host": [
+								"{{proxy}}keywords",
+								"createReport"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var reportId = jsonData[\"reportId\"];",
+									"pm.environment.set(\"reportIdTemp\", reportId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n\t\"session\" : \"{{session}}\",\n\t\"userId\" : {{userDefault}}\n},\n[{\n\t\"name\" : \"Whisky 0\", \n\t\"groupId\" : 81408348,\n\t\"matchType\" : \"broad\",\n\t\"cpc\" : 2222\n}]]"
+						},
+						"url": {
+							"raw": "{{proxy}}keywords.create",
+							"host": [
+								"{{proxy}}keywords",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateReport - split by device",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var reportId = jsonData[\"reportId\"];",
+									"pm.environment.set(\"reportIdTemp\", reportId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n\t\"session\" : \"{{session}}\",\n\t\"userId\" : {{userDefault}}\n},\n{\n\t\"dateFrom\" : \"2019-01-01\", \n\t\"dateTo\" : \"2019-02-02\",\n\t\"deviceType\": [\"devicePhone\", \"deviceTablet\", \"deviceAll\", \"deviceOther\", \"deviceDesktop\"]\n},\n{}]"
 						},
 						"url": {
 							"raw": "{{proxy}}keywords.createReport",
@@ -1393,7 +1964,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n\"{{reportIdTemp}}\",\n{\n\t\"offset\" : 0,\n\t\"limit\" : 1000,\n\t\"allowEmptyStatistics\" : true, \n\t\"displayColumns\": [\"cpc\",\"createDate\",\"deleteDate\",\"deleted\",\"disabled\",\"id\",\"matchTypeId\",\"matchType\",\"name\",\"status\",\"statusId\",\"url\",\"group.id\",\"group.name\",\"group.deleted\",\"group.createDate\",\"group.deleteDate\",\"group.maxCpc\",\"group.maxCpcContext\",\"group.maxCpt\",\"campaign.id\",\"campaign.totalBudgetFrom\",\"campaign.name\",\"campaign.totalClicks\",\"campaign.actualClicks\",\"campaign.totalClicksFrom\",\"campaign.context\",\"campaign.fulltext\",\"campaign.deleted\",\"campaign.deleteDate\",\"campaign.adSelection\",\"campaign.adSelectionId\",\"campaign.paymentMethod\",\"campaign.paymentMethodId\",\"campaign.startDate\",\"campaign.endDate\",\"campaign.createDate\",\"campaign.automaticLocation\",\"campaign.budgetId\",\"campaign.defaultBudgetId\",\"campaign.deviceDesktop\",\"campaign.deviceTablet\",\"campaign.deviceMobil\",\"campaign.deviceOther\",\"campaign.status\",\"campaign.statusId\",\"avgCpc\",\"avgPos\",\"clickMoney\",\"clicks\",\"conversions\",\"conversionValue\",\"impressionMoney\",\"impressions\",\"totalMoney\",\"transactions\",\"missImpressions\",\"underLowerThreshold\",\"exhaustedBudget\",\"stoppedBySchedule\",\"underForestThreshold\",\"exhaustedBudgetShare\",\"ctr\",\"pno\",\"ish\",\"ishContext\",\"ishSum\",\"isRegisteredBrand\",\"isUnsuitable\",\"isTooGeneric\",\"isGloballyDisabled\",\"isTrademark\",\"isSuspicious\",\"campaign.devicesPriceRatio\"]\n}\n]"
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n\"{{reportIdTemp}}\",\n{\n\t\"offset\" : 0,\n\t\"limit\" : 10,\n\t\"allowEmptyStatistics\" : true, \n\t\"displayColumns\": [\"cpc\",\"createDate\",\"deleteDate\",\"deleted\",\"disabled\",\"id\",\"matchTypeId\",\"matchType\",\"name\",\"status\",\"statusId\",\"url\",\"group.id\",\"group.name\",\"group.deleted\",\"group.createDate\",\"group.deleteDate\",\"group.maxCpc\",\"group.maxCpt\",\"campaign.id\",\"campaign.totalBudgetFrom\",\"campaign.name\",\"campaign.totalClicks\",\"campaign.actualClicks\",\"campaign.totalClicksFrom\",\"campaign.context\",\"campaign.fulltext\",\"campaign.deleted\",\"campaign.deleteDate\",\"campaign.adSelection\",\"campaign.adSelectionId\",\"campaign.paymentMethod\",\"campaign.paymentMethodId\",\"campaign.startDate\",\"campaign.endDate\",\"campaign.createDate\",\"campaign.automaticLocation\",\"campaign.budgetId\",\"campaign.defaultBudgetId\",\"campaign.status\",\"campaign.statusId\",\"campaign.contextNetwork\",\"campaign.exhaustedTotalBudget\",\"campaign.totalBudget\",\"avgCpc\",\"avgPos\",\"clickMoney\",\"clicks\",\"conversions\",\"conversionValue\",\"impressionMoney\",\"impressions\",\"totalMoney\",\"transactions\",\"missImpressions\",\"underLowerThreshold\",\"exhaustedBudget\",\"stoppedBySchedule\",\"underForestThreshold\",\"exhaustedBudgetShare\",\"ctr\",\"pno\",\"ish\",\"ishContext\",\"ishSum\",\"isRegisteredBrand\",\"isUnsuitable\",\"isTooGeneric\",\"isGloballyDisabled\",\"isTrademark\",\"isSuspicious\",\"campaign.devicesPriceRatio\"]\n}\n]"
 						},
 						"url": {
 							"raw": "{{proxy}}keywords.readReport",
@@ -1411,7 +1982,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "dd06a237-722a-4cfe-bb45-1f4800d3dcc5",
 								"exec": [
 									"var jsonData = pm.response.json();",
 									"var reportId = jsonData[\"reportId\"];",
@@ -1433,7 +2003,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[{\n\t\"session\" : \"{{session}}\",\n\t\"userId\" : {{userDefault}}\n},\n{\n\t\"campaign\" : {\n\t\t\"ids\" : [1267558]\t\n\t}\n}]"
+							"raw": "[{\n\t\"session\" : \"{{session}}\",\n\t\"userId\" : {{userDefault}}\n},\n{\n   \"names\" : [{\"operator\": \"STARTS_WITH\",  \"value\": \"kolacek\"}],\n\t\"campaign\" : {\n\t\t\"names\" : [{\"operator\": \"STARTS_WITH\",  \"value\": \"Jirka\"}]\n\t} \n}]"
 						},
 						"url": {
 							"raw": "{{proxy}}keywords.negative.createReport",
@@ -1441,33 +2011,6 @@
 								"{{proxy}}keywords",
 								"negative",
 								"createReport"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Negative.ReadReport",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n\"{{reportIdTemp}}\",\n{\n\t\"offset\" : 0,\n\t\"limit\" : 10,\n\t\"allowEmptyStatistics\" : true, \n\t\"displayColumns\": [\"deleteDate\",\"deleted\",\"id\",\"matchTypeId\",\"matchType\",\"name\",\"group.id\",\"group.name\",\"group.deleted\",\"group.createDate\",\"group.deleteDate\",\"group.maxCpc\",\"group.maxCpcContext\",\"group.maxCpt\",\"campaign.id\",\"campaign.name\",\"campaign.totalClicks\",\"campaign.actualClicks\",\"campaign.startDate\",\"campaign.endDate\",\"campaign.totalBudgetFrom\",\"campaign.totalClicksFrom\",\"campaign.createDate\",\"campaign.deleteDate\",\"campaign.deleted\",\"campaign.context\",\"campaign.fulltext\",\"campaign.adSelectionId\",\"campaign.paymentMethodId\",\"campaign.automaticLocation\",\"campaign.budgetId\",\"campaign.defaultBudgetId\",\"campaign.deviceDesktop\",\"campaign.deviceTablet\",\"campaign.deviceMobil\",\"campaign.deviceOther\"]\n}\n]"
-						},
-						"url": {
-							"raw": "{{proxy}}keywords.negative.readReport",
-							"host": [
-								"{{proxy}}keywords",
-								"negative",
-								"readReport"
 							]
 						}
 					},
@@ -1487,7 +2030,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[\n\t{\"session\" : \"{{session}}\"},\n\t\"-kofola\",\n\t{\n\t\t\"offset\" : 0,\n\t\t\"limit\" : 10,\n\t\t\"orderBy\" : \"avgSearchCount\",\n\t\t\"orderDirection\" : \"desc\"\n\t}\n]"
+							"raw": "[\n\t{\"session\" : \"{{session}}\"},\n\t\"-kofolaa\",\n\t{\n\t\t\"offset\" : 0,\n\t\t\"limit\" : 10,\n\t\t\"orderBy\" : \"avgSearchCount\",\n\t\t\"orderDirection\" : \"desc\"\n\t}\n]"
 						},
 						"url": {
 							"raw": "{{proxy}}keywords.suggest",
@@ -1536,7 +2079,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "dd06a237-722a-4cfe-bb45-1f4800d3dcc5",
 								"exec": [
 									"var jsonData = pm.response.json();",
 									"var reportId = jsonData[\"reportId\"];",
@@ -1584,7 +2126,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n\"{{reportIdTemp}}\",\n{\n\t\"offset\" : 0,\n\t\"limit\" : 1000,\n\t\"allowEmptyStatistics\" : true, \n\t\"displayColumns\": [\n\"query\",\n\"keyword.id\",\n\"keyword.createDate\",\n\"keyword.deleteDate\",\n\"keyword.deleted\",\n\"keyword.status\",\n\"keyword.statusId\",\n\"keyword.name\",\n\"keyword.matchTypeId\",\n\"keyword.matchType\",\n\"keyword.urlId\",\n\"keyword.url\",\n\"keyword.maxCpc\",\n\"keyword.cpc\",\n\"keyword.disabled\",\n\"group.id\",\n\"group.name\",\n\"group.deleted\",\n\"group.createDate\",\n\"group.deleteDate\",\n\"group.maxCpc\",\n\"group.maxCpcContext\",\n\"group.maxCpt\",\n\"group.statusId\",\n\"campaign.id\",\n\"campaign.totalBudgetFrom\",\n\"campaign.name\",\n\"campaign.totalClicks\",\n\"campaign.actualClicks\",\n\"campaign.totalClicksFrom\",\n\"campaign.context\",\n\"campaign.fulltext\",\n\"campaign.deleted\",\n\"campaign.deleteDate\",\n\"campaign.adSelection\",\n\"campaign.adSelectionId\",\n\"campaign.paymentMethod\",\n\"campaign.paymentMethodId\",\n\"campaign.startDate\",\n\"campaign.endDate\",\n\"campaign.createDate\",\n\"campaign.automaticLocation\",\n\"campaign.budgetId\",\n\"campaign.defaultBudgetId\",\n\"campaign.deviceDesktop\",\n\"campaign.deviceTablet\",\n\"campaign.deviceMobil\",\n\"campaign.deviceOther\",\n\"campaign.statusId\",\n\"avgCpc\",\n\"avgPos\",\n\"clickMoney\",\n\"clicks\",\n\"conversions\",\n\"conversionValue\",\n\"impressionMoney\",\n\"impressions\",\n\"totalMoney\",\n\"transactions\"]\n}\n]"
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n\"{{reportIdTemp}}\",\n{\n\t\"offset\" : 0,\n\t\"limit\" : 5000,\n\t\"allowEmptyStatistics\" : true, \n\t\"displayColumns\": [\n\"query\",\n\"keyword.id\",\n\"keyword.createDate\",\n\"keyword.deleteDate\",\n\"keyword.deleted\",\n\"keyword.status\",\n\"keyword.statusId\",\n\"keyword.name\",\n\"keyword.matchTypeId\",\n\"keyword.matchType\",\n\"keyword.urlId\",\n\"keyword.url\",\n\"keyword.maxCpc\",\n\"keyword.cpc\",\n\"keyword.disabled\",\n\"group.id\",\n\"group.name\",\n\"group.deleted\",\n\"group.createDate\",\n\"group.deleteDate\",\n\"group.maxCpc\",\n\"group.maxCpt\",\n\"group.statusId\",\n\"campaign.id\",\n\"campaign.totalBudgetFrom\",\n\"campaign.name\",\n\"campaign.totalClicks\",\n\"campaign.actualClicks\",\n\"campaign.totalClicksFrom\",\n\"campaign.context\",\n\"campaign.fulltext\",\n\"campaign.deleted\",\n\"campaign.deleteDate\",\n\"campaign.adSelection\",\n\"campaign.adSelectionId\",\n\"campaign.paymentMethod\",\n\"campaign.paymentMethodId\",\n\"campaign.startDate\",\n\"campaign.endDate\",\n\"campaign.createDate\",\n\"campaign.automaticLocation\",\n\"campaign.budgetId\",\n\"campaign.defaultBudgetId\",\n\"campaign.deviceDesktop\",\n\"campaign.deviceTablet\",\n\"campaign.deviceMobil\",\n\"campaign.deviceOther\",\n\"campaign.statusId\",\n\"avgCpc\",\n\"avgPos\",\n\"clickMoney\",\n\"clicks\",\n\"conversions\",\n\"conversionValue\",\n\"impressionMoney\",\n\"impressions\",\n\"totalMoney\",\n\"transactions\"]\n}\n]"
 						},
 						"url": {
 							"raw": "{{proxy}}queries.readReport",
@@ -1601,7 +2143,6 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "8d14762c-d866-40e4-8215-6640f302177b",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -1611,7 +2152,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "eab530d8-0295-40a1-ba8f-97157d9750eb",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -1629,7 +2169,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "14add708-e7fb-4f39-bda2-f24c539b6b56",
 								"exec": [
 									"var jsonData = pm.response.json();",
 									"var reportId = jsonData[\"reportId\"];",
@@ -1651,13 +2190,253 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[{\n\t\"session\" : \"{{session}}\",\n\t\"userId\" : {{userDefault}}\n},\n{\n\t\"retargetingState\" : \"assigned\",\n\t\"dateFrom\" : \"2018-01-01\", \n\t\"dateTo\":\"2018-01-02\"\n},\n{\n\t\"statGranularity\":\"total\"\n}]"
+							"raw": "[{\n\t\"session\" : \"{{session}}\",\n\t\"userId\" : {{userDefault}}\n},\n{\n\t\"ids\": [672081],\n\t\"dateFrom\" : \"2020-04-01\", \n\t\"dateTo\":\"2020-04-02\"\n},\n{\n\t\"statGranularity\":\"total\"\n}]"
 						},
 						"url": {
 							"raw": "{{proxy}}retargeting.createReport",
 							"host": [
 								"{{proxy}}retargeting",
 								"createReport"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Lists.list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var reportId = jsonData[\"reportId\"];",
+									"pm.environment.set(\"reportIdTemp\", reportId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n\t\"session\" : \"{{session}}\",\n\t\"userId\" : {{userDefault}}\n}]"
+						},
+						"url": {
+							"raw": "{{proxy}}retargeting.lists.list",
+							"host": [
+								"{{proxy}}retargeting",
+								"lists",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "retargeting.emails.create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var reportId = jsonData[\"reportId\"];",
+									"pm.environment.set(\"reportIdTemp\", reportId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n\t\"session\" : \"{{session}}\",\n\t\"userId\" : {{userDefault}}\n},\n[\n\t{\n        \"name\" : \"apiIncrement2\", \n        \"description\" : \"test API increment\"\n\t}\n]\n\n\n]"
+						},
+						"url": {
+							"raw": "{{proxy}}retargeting.emails.create",
+							"host": [
+								"{{proxy}}retargeting",
+								"emails",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "retargeting.emails.addEmail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var reportId = jsonData[\"reportId\"];",
+									"pm.environment.set(\"reportIdTemp\", reportId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n\t\"session\" : \"{{session}}\",\n\t\"userId\" : {{userDefault}}\n},{\n    \"retargetingListId\": 423174569,\n    \"emails\": [\"chocotux@gmail.com\"]\n}\n]"
+						},
+						"url": {
+							"raw": "{{proxy}}retargeting.emails.addEmail",
+							"host": [
+								"{{proxy}}retargeting",
+								"emails",
+								"addEmail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "retargeting.emails.removeEmail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var reportId = jsonData[\"reportId\"];",
+									"pm.environment.set(\"reportIdTemp\", reportId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n\t\"session\" : \"{{session}}\",\n\t\"userId\" : {{userDefault}}\n},{\n    \"retargetingListId\": 423174569,\n    \"emails\": [\"stejskal@tuxi.cz\"]\n}\n]"
+						},
+						"url": {
+							"raw": "{{proxy}}retargeting.emails.removeEmail",
+							"host": [
+								"{{proxy}}retargeting",
+								"emails",
+								"removeEmail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retargeting.lists.remove",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var reportId = jsonData[\"reportId\"];",
+									"pm.environment.set(\"reportIdTemp\", reportId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n\t\"session\" : \"{{session}}\",\n\t\"userId\" : {{userDefault}}\n}, \n[422792583]\n]"
+						},
+						"url": {
+							"raw": "{{proxy}}retargeting.lists.remove",
+							"host": [
+								"{{proxy}}retargeting",
+								"lists",
+								"remove"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Lists.get",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var reportId = jsonData[\"reportId\"];",
+									"pm.environment.set(\"reportIdTemp\", reportId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n\t\"session\" : \"{{session}}\",\n\t\"userId\" : {{userDefault}}\n},\n[321,321]\n]"
+						},
+						"url": {
+							"raw": "{{proxy}}retargeting.lists.get",
+							"host": [
+								"{{proxy}}retargeting",
+								"lists",
+								"get"
 							]
 						}
 					},
@@ -1677,7 +2456,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n\"{{reportIdTemp}}\",\n{\n\t\"offset\" : 0,\n\t\"limit\" : 10,\n\t\"allowEmptyStatistics\" : true, \n\t\"displayColumns\": [\"id\",\"retargetingId\",\"active\",\"cpc\",\"cpt\",\"isCombination\",\"name\",\"membership\",\"users\",\"useHistoricData\",\"description\",\"createDate\",\"takeAllUsers\",\"indexDate\",\"isDynamic\",\"deleteDate\",\"listDeleted\",\"deleted\",\"suspendDate\",\"status\",\"retargetingConditions.id\",\"retargetingConditions.groupId\",\"retargetingConditions.value\",\"retargetingConditions.type\",\"retargetingConditions.key\",\"campaign.actualClicks\",\"campaign.createDate\",\"campaign.deleteDate\",\"campaign.deleted\",\"campaign.endDate\",\"campaign.id\",\"campaign.name\",\"campaign.startDate\",\"campaign.totalBudgetFrom\",\"campaign.totalClicksFrom\",\"campaign.totalClicks\",\"group.id\",\"group.name\",\"group.deleted\",\"group.createDate\",\"group.deleteDate\",\"group.maxCpc\",\"group.maxCpcContext\",\"group.maxCpt\",\"avgCpc\",\"avgPos\",\"clickMoney\",\"clicks\",\"conversions\",\"conversionValue\",\"impressionMoney\",\"impressions\",\"totalMoney\",\"transactions\",\"missImpressions\",\"underLowerThreshold\",\"exhaustedBudget\",\"stoppedBySchedule\",\"underForestThreshold\",\"exhaustedBudgetShare\",\"ctr\",\"pno\"]\n}\n]"
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : 77051\n},\n\"{{reportIdTemp}}\",\n{\n\t\"offset\" : 0,\n\t\"limit\" : 10,\n\t\"allowEmptyStatistics\" : true, \n\t\"displayColumns\": [\"id\",\"retargetingId\",\"active\",\"cpc\",\"cpt\",\"isCombination\",\"name\",\"membership\",\"users\",\"useHistoricData\",\"description\",\"createDate\",\"takeAllUsers\",\"indexDate\",\"isDynamic\",\"deleteDate\",\"listDeleted\",\"deleted\",\"suspendDate\",\"status\",\"retargetingConditions.id\",\"retargetingConditions.groupId\",\"retargetingConditions.value\",\"retargetingConditions.type\",\"retargetingConditions.key\",\"campaign.actualClicks\",\"campaign.createDate\",\"campaign.deleteDate\",\"campaign.deleted\",\"campaign.endDate\",\"campaign.id\",\"campaign.name\",\"campaign.startDate\",\"campaign.totalBudgetFrom\",\"campaign.totalClicksFrom\",\"campaign.totalClicks\",\"group.id\",\"group.name\",\"group.deleted\",\"group.createDate\",\"group.deleteDate\",\"group.maxCpc\",\"group.maxCpt\",\"avgCpc\",\"avgPos\",\"clickMoney\",\"clicks\",\"conversions\",\"conversionValue\",\"impressionMoney\",\"impressions\",\"totalMoney\",\"transactions\",\"missImpressions\",\"underLowerThreshold\",\"exhaustedBudget\",\"stoppedBySchedule\",\"underForestThreshold\",\"exhaustedBudgetShare\",\"ctr\",\"pno\",\"ish\",\"ishContext\",\"ishSum\"]\n}\n]"
 						},
 						"url": {
 							"raw": "{{proxy}}retargeting.readReport",
@@ -1700,7 +2479,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "14add708-e7fb-4f39-bda2-f24c539b6b56",
 								"exec": [
 									"var jsonData = pm.response.json();",
 									"var reportId = jsonData[\"reportId\"];",
@@ -1735,12 +2513,11 @@
 					"response": []
 				},
 				{
-					"name": "List Copy",
+					"name": "Create",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
-								"id": "14add708-e7fb-4f39-bda2-f24c539b6b56",
 								"exec": [
 									"var jsonData = pm.response.json();",
 									"var reportId = jsonData[\"reportId\"];",
@@ -1762,14 +2539,52 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[{\n\t\"session\" : \"{{session}}\",\n\t\"userId\" : {{userDefault}}\n},[]\n]"
+							"raw": "[{\n\t\"session\" : \"{{session}}\",\n\t\"userId\" : {{userDefault}}\n},[{\"name\": \"Test2\"}]\n]"
 						},
 						"url": {
-							"raw": "{{proxy}}sitelinks.campaign.list",
+							"raw": "{{proxy}}sitelinks.create",
 							"host": [
 								"{{proxy}}sitelinks",
-								"campaign",
-								"list"
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create as label",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var reportId = jsonData[\"reportId\"];",
+									"pm.environment.set(\"reportIdTemp\", reportId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n\t\"session\" : \"{{session}}\",\n\t\"userId\" : {{userDefault}}\n},[{\"name\": \"AlaTes2t\"}]\n]"
+						},
+						"url": {
+							"raw": "{{proxy}}sitelinks.create",
+							"host": [
+								"{{proxy}}sitelinks",
+								"create"
 							]
 						}
 					},
@@ -1781,7 +2596,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "dd06a237-722a-4cfe-bb45-1f4800d3dcc5",
 								"exec": [
 									"var jsonData = pm.response.json();",
 									"var reportId = jsonData[\"reportId\"];",
@@ -1803,7 +2617,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[{\n\t\"session\" : \"{{session}}\",\n\t\"userId\" : {{userDefault}}\n},\n{\n\t\"dateFrom\" : \"2019-03-01\", \n\t\"dateTo\" : \"2019-03-31\",\n\t\"campaign\" : {\n\t\t\"ids\" : [720971]\n\t}\n},\n{\"statGranularity\": \"total\"}\n]"
+							"raw": "[{\n\t\"session\" : \"{{session}}\",\n\t\"userId\" : {{userDefault}}\n},\n{\n\t\"dateFrom\" : \"2019-03-01\", \n\t\"dateTo\" : \"2020-08-31\",\n\t\"campaign\" : {\n\t\t\"ids\" : [1571922]\n\t}\n},\n{\"statGranularity\": \"total\"}\n]"
 						},
 						"url": {
 							"raw": "{{proxy}}sitelinks.createReport",
@@ -1829,33 +2643,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n\"{{reportIdTemp}}\",\n{\n\t\"offset\" : 0,\n\t\"limit\" : 100,\n\t\"allowEmptyStatistics\" : true, \n\t\"displayColumns\": [\n\"id\",\n\"createDate\",\n\"deleted\",\n\"deletedSitelinkInGroup\",\n\"status\",\n\"statusId\",\n\"name\",\n\"urlId\",\n\"url\",\n\"indexDate\",\n\"group.id\",\n\"group.name\",\n\"group.deleted\",\n\"group.createDate\",\n\"group.deleteDate\",\n\"group.maxCpc\",\n\"group.maxCpcContext\",\n\"group.maxCpt\",\n\"campaign.actualClicks\",\n\"campaign.createDate\",\n\"campaign.deleteDate\",\n\"campaign.deleted\",\n\"campaign.endDate\",\n\"campaign.id\",\n\"campaign.name\",\n\"campaign.startDate\",\n\"campaign.totalBudgetFrom\",\n\"campaign.totalClicksFrom\",\n\"campaign.totalClicks\",\n\"user.id\",\n\"clicks\",\n\"impressions\",\n\"clickMoney\",\n\"impressionMoney\",\n\"totalMoney\",\n\"avgPos\",\n\"conversions\",\n\"transactions\",\n\"missImpressions\",\n\"underLowerThreshold\",\n\"exhaustedBudget\",\n\"stoppedBySchedule\",\n\"underForestThreshold\",\n\"exhaustedBudgetShare\",\n\"ctr\",\n\"pno\",\n\"ish\"\n]\n}\n]"
-						},
-						"url": {
-							"raw": "{{proxy}}sitelinks.readReport",
-							"host": [
-								"{{proxy}}sitelinks",
-								"readReport"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ReadReport Copy",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n\"{{reportIdTemp}}\",\n{\n\t\"offset\" : 0,\n\t\"limit\" : 500,\n\t\"allowEmptyStatistics\" : true, \n\t\"displayColumns\": [\n\"id\", \n\"deleted\",\n\"avgPos\",\n\"ctr\",\n\"impressions\",\n\"clickMoney\",\n\"impressionMoney\",\n\"totalMoney\",\n\"avgPos\",\n\"conversions\",\n\"transactions\",\n\"missImpressions\",\n\"underLowerThreshold\",\n\"exhaustedBudget\",\n\"stoppedBySchedule\",\n\"underForestThreshold\",\n\"exhaustedBudgetShare\",\n\"ctr\",\n\"pno\",\n\"ish\"\n\n]\n}\n]"
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n\"{{reportIdTemp}}\",\n{\n\t\"offset\" : 0,\n\t\"limit\" : 100,\n\t\"allowEmptyStatistics\" : true, \n\t\"displayColumns\": [\n\"id\",\n\"name\",\n\"urlId\",\n\"url\"\n]\n}\n]"
 						},
 						"url": {
 							"raw": "{{proxy}}sitelinks.readReport",
@@ -1870,6 +2658,68 @@
 			]
 		},
 		{
+			"name": "Stats",
+			"item": [
+				{
+					"name": "Status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\"session\" : \"{{session}}\"},{\"dateFrom\": \"2020-09-20\", \"dateTo\": \"2020-10-06\"}]"
+						},
+						"url": {
+							"raw": "{{proxy}}stats.status",
+							"host": [
+								"{{proxy}}stats",
+								"status"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
 			"name": "Themes",
 			"item": [
 				{
@@ -1878,7 +2728,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "dd06a237-722a-4cfe-bb45-1f4800d3dcc5",
 								"exec": [
 									"var jsonData = pm.response.json();",
 									"var reportId = jsonData[\"reportId\"];",
@@ -1903,10 +2752,10 @@
 							"raw": "[{\n\t\"session\" : \"{{session}}\",\n\t\"userId\" : {{userDefault}}\n}]"
 						},
 						"url": {
-							"raw": "{{proxy}}intends.getCategoryList",
+							"raw": "{{proxy}}themes.listCategories",
 							"host": [
-								"{{proxy}}intends",
-								"getCategoryList"
+								"{{proxy}}themes",
+								"listCategories"
 							]
 						}
 					},
@@ -1917,7 +2766,6 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "3a87d749-3c15-428e-8541-54f639316d35",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -1927,12 +2775,166 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "2477a299-410c-4bfa-9be1-82e6fff367e0",
 						"type": "text/javascript",
 						"exec": [
 							""
 						]
 					}
+				}
+			]
+		},
+		{
+			"name": "ProductSets",
+			"item": [
+				{
+					"name": "ProductSets.listLabels",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n\t{\n        \"premiseId\" : 1234, \n        \"labelType\" : [\"description\"], \n        \"limit\" : 100,\n        \"offset\" : 10\n\t}\n]        \n       "
+						},
+						"url": {
+							"raw": "{{proxy}}productsets.listLabels",
+							"host": [
+								"{{proxy}}productsets",
+								"listLabels"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ProductSets.Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n\t{\n        \"groupid\" : 113590121, \n        \"name\" : \"PI_1\", \n        \"plaPremiseId \" : 149886,\n        \"cpc\" : 5000,\n        \"status\" : \"active\",\n        \"templateId\": [15446],\n        \"labelsValues\": [{\n            \"label\": \"brand\",\n            \"values\": \"cojavim\"            \n        }, {\n            \"label\": \"price\",\n            \"valueFrom\": 100, \n            \"valueTo\": 300           \n        }\n        ]\n\t}\n]        \n       ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{proxy}}productsets.create",
+							"host": [
+								"{{proxy}}productsets",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ProductSets.update",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},{\n        \"id\" : 3097889, \n        \"name\" : \"PI_0\", \n        \"plaPremiseId \" : 149886,\n        \"cpc\" : 5000,\n        \"status\" : \"active\",\n        \"templateId\": [15446],\n        \"labelsValues\": [{\n            \"label\": \"manufacturer\",\n            \"values\": \"Dolor amet\"            \n        }, {\n            \"label\": \"price\",\n            \"valueFrom\": 100, \n            \"valueTo\": 300           \n        }]\n}]        \n       ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{proxy}}productsets.update",
+							"host": [
+								"{{proxy}}productsets",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ProductSets.remove",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},[3097892]]        \n       ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{proxy}}productsets.update",
+							"host": [
+								"{{proxy}}productsets",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Dynamictemplates",
+			"item": [
+				{
+					"name": "DynamicTemplates.list",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\n\t\"session\" : \"{{session}}\", \n\t\"userId\" : {{userDefault}}\n},\n{\n    \"isDeleted\": false,\n    \"ids\": [1223]\n},\n{\n\"offset\": 0,\n\"limit\": 10, \n\"displayColumns\": [\"id\",\n\"cborder\", \"cbackground\", \"ctitle\", \"ctext\", \"curl\", \"font\", \"trackingTemplate\",\"impressionTrackingTemplate\", \"impressionTrackingTemplate2\", \"deleted\", \"name\", \"description\"]\n}\n]        \n       "
+						},
+						"url": {
+							"raw": "{{proxy}}dynamicTemplates.list",
+							"host": [
+								"{{proxy}}dynamicTemplates",
+								"list"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
